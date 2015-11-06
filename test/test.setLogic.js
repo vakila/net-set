@@ -2,6 +2,21 @@ var assert = require('assert');
 var mori = require('mori');
 var setLogic = require('./../setLogic.js');
 
+describe('makeDeck', function(){
+    it('should return a mori vector', function(){
+        assert(mori.isVector(setLogic.makeDeck()));
+    });
+
+    it('should return a vector with 81 elements', function(){
+        assert.equal(mori.count(setLogic.makeDeck()),81);
+    });
+
+    it('should contain no duplicate elements', function(){
+        //TODO Need to make sure that this test is sufficient
+        assert.equal(mori.count(mori.distinct(setLogic.makeDeck())),81);
+    })
+})
+
 describe('makeCard', function() {
     it('should return a mori hashMap', function(){
         assert(mori.isMap(setLogic.makeCard(1,1,1,1)));

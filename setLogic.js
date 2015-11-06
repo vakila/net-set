@@ -1,5 +1,11 @@
 var m = require('mori');
 
+exports.makeDeck = function() {
+//     for number in [0,1,2]:
+//         for shape in [0,1,2]:
+//             for fill in [0,1,2]
+}
+
 exports.makeCard = function(numberIndex, shapeIndex, fillIndex, colorIndex) {
     // number, shape, fill, and color are integers representing the attribute indices
     // e.g. makeCard(1, 1, 1, 1);
