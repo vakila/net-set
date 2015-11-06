@@ -52,12 +52,3 @@ describe('isSet', function(){
     it('should reject three cards where only two share an attribute');
 
 })
-
-describe('isAttrOK', function(){
-
-    it('should accept three identical values');
-
-    it('should accept three distinct values');
-
-    it('should reject two similar and one different values');
-})
