@@ -37,16 +37,16 @@ exports.isSet = function(cards) {
     );
 }
 
-function areAttrsOK(threeCards) {
+function areAttrsOK(cards) {
     // TODO seems sloppy to repeat the list of attributes in here,
     // what's the better way?
     return mori.vector(["number", "shape", "fill", "color"]).map(
-        function(a) {return isAttrOK(threeCards, a)}
+        function(a) {return isAttrOK(cards, a)}
     );
 }
 
-function isAttrOK(threeCards, attr) {
-    var relevant = threeCards.map(function(card) {return mori.get(card, attr);});
+function isAttrOK(cards, attr) {
+    var relevant = mori.map(function(card) {return mori.get(card, attr);}, cards);
     var distinct = mori.count(mori.set(relevant));
-    return distinct === 1 || distinct === mori.count(threeCards);
+    return distinct === 1 || distinct === mori.count(cards);
 }
