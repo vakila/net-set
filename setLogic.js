@@ -1,27 +1,27 @@
-var mori = require('mori');
+var m = require('mori');
 
 exports.makeCard = function(numberIndex, shapeIndex, fillIndex, colorIndex) {
     // number, shape, fill, and color are integers representing the attribute indices
     // e.g. makeCard(1, 1, 1, 1);
 
-    var ATTRIBUTES = mori.hashMap(
-        "number", mori.vector(1, 2, 3),
-        "shape", mori.vector("diamond", "pill", "rectangle"),
-        "fill", mori.vector("solid", "shaded", "open"),
-        "color", mori.vector("red", "green", "purple")
+    var ATTRIBUTES = m.hashMap(
+        "number", m.vector(1, 2, 3),
+        "shape", m.vector("diamond", "pill", "rectangle"),
+        "fill", m.vector("solid", "shaded", "open"),
+        "color", m.vector("red", "green", "purple")
     );
 
     function getAttrValue(name, index) {
-        var attrVec = mori.get(ATTRIBUTES, name);
-        return mori.nth(attrVec, index);
+        var attrVec = m.get(ATTRIBUTES, name);
+        return m.nth(attrVec, index);
     }
 
-    var attrNames = mori.vector("number","shape","fill","color");
-    var attrIndices = mori.vector(numberIndex, shapeIndex, fillIndex, colorIndex);
+    var attrNames = m.vector("number","shape","fill","color");
+    var attrIndices = m.vector(numberIndex, shapeIndex, fillIndex, colorIndex);
 
-    var values = mori.map(getAttrValue, attrNames, attrIndices);
+    var values = m.map(getAttrValue, attrNames, attrIndices);
 
-    var card = mori.zipmap(attrNames, values);
+    var card = m.zipmap(attrNames, values);
 
     return card;
 }
@@ -32,7 +32,7 @@ exports.isSet = function(cards) {
         return false;
     }
 
-    return mori.reduce(
+    return m.reduce(
         function(first, next) { return first && next;},
         areAttrsOK(cards)
     );
@@ -41,13 +41,13 @@ exports.isSet = function(cards) {
 function areAttrsOK(cards) {
     // TODO seems sloppy to repeat the list of attributes in here,
     // what's the better way?
-    return mori.map(
+    return m.map(
         function(a) {return isAttrOK(cards, a)},
-        mori.vector(["number", "shape", "fill", "color"])
+        m.vector(["number", "shape", "fill", "color"])
     );
 }
 function isAttrOK(cards, attr) {
-    var relevant = mori.map(function(card) {return mori.get(card, attr);}, cards);
-    var distinct = mori.count(mori.set(relevant));
-    return distinct === 1 || distinct === mori.count(cards);
+    var relevant = m.map(function(card) {return m.get(card, attr);}, cards);
+    var distinct = m.count(m.set(relevant));
+    return distinct === 1 || distinct === m.count(cards);
 }
