@@ -48,6 +48,6 @@ function areAttrsOK(cards) {
 }
 function isAttrOK(cards, attr) {
     var relevant = m.map(function(card) {return m.get(card, attr);}, cards);
-    var distinct = m.count(m.set(relevant));
+    var distinct = m.count(m.distinct(relevant));
     return distinct === 1 || distinct === m.count(cards);
 }
