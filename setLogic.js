@@ -28,7 +28,7 @@ exports.makeCard = function(numberIndex, shapeIndex, fillIndex, colorIndex) {
 
 
 exports.isSet = function(cards) {
-    if (cards.length !== 3) {
+    if (m.count(cards) !== 3) {
         return false;
     }
 
