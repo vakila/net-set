@@ -8,9 +8,27 @@ describe('makeCard', function() {
     });
 
     it('should return a hashMap with the four attribute names as keys', function(){
-        assert.equal(mori.intoArray(mori.keys(setLogic.makeCard(1,1,1,1))),
-            ["number", "shape", "fill", "color"]
-        );
+        var card1 = setLogic.makeCard(1,1,1,1);
+        assert.equal(mori.count(mori.keys(card1)), 4);
+        assert(mori.hasKey(card1, "number"));
+        assert(mori.hasKey(card1, "shape"));
+        assert(mori.hasKey(card1, "fill"));
+        assert(mori.hasKey(card1, "color"));
+    });
+
+    it('should return a hashMap with the correct values', function() {
+        var card0 = setLogic.makeCard(0,0,0,0);
+        assert.equal(mori.get(card0, "number"), 1);
+        assert.equal(mori.get(card0, "shape"), "diamond");
+        assert.equal(mori.get(card0, "fill"), "solid");
+        assert.equal(mori.get(card0, "color"), "red");
+
+        var card2 = setLogic.makeCard(1,2,1,2);
+        assert.equal(mori.get(card2, "number"), 2);
+        assert.equal(mori.get(card2, "shape"), "rectangle");
+        assert.equal(mori.get(card2, "fill"), "shaded");
+        assert.equal(mori.get(card2, "color"), "purple");
+
     });
 
 
@@ -33,4 +51,13 @@ describe('isSet', function(){
 
     it('should reject three cards where only two share an attribute');
 
+})
+
+describe('isAttrOK', function(){
+
+    it('should accept three identical values');
+
+    it('should accept three distinct values');
+
+    it('should reject two similar and one different values');
 })
