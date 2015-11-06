@@ -1,7 +1,6 @@
 var mori = require('mori');
 
-
-exports.makeCard = function(number, shape, fill, color) {
+exports.makeCard = function(numberIndex, shapeIndex, fillIndex, colorIndex) {
     // number, shape, fill, and color are integers representing the attribute indices
     // e.g. makeCard(1, 1, 1, 1);
 
@@ -12,16 +11,21 @@ exports.makeCard = function(number, shape, fill, color) {
         "color", mori.vector("red", "green", "purple")
     );
 
-    // this does not work:
-    // var values = mori.map(function(attrVector, attrIndex) {
-    //     return mori.nth(attrVector, attrIndex);
-    // }, mori.vector(mori.keys(ATTRIBUTES)), mori.vector(number,shape,fill,color)
-    // );
+    function getAttrValue(name, index) {
+        var attrVec = mori.get(ATTRIBUTES, name);
+        return mori.nth(attrVec, index);
+    }
 
-    var card = mori.hashMap(mori.interleave(mori.keys(ATTRIBUTES), values))
+    var attrNames = mori.vector("number","shape","fill","color");
+    var attrIndices = mori.vector(numberIndex, shapeIndex, fillIndex, colorIndex);
+
+    var values = mori.map(getAttrValue, attrNames, attrIndices);
+
+    var card = mori.zipmap(attrNames, values);
 
     return card;
 }
+
 
 exports.isSet = function(cards) {
     if (cards.length !== 3) {
@@ -42,6 +46,7 @@ function areAttrsOK(threeCards) {
 }
 
 function isAttrOK(threeCards, attr) {
-    var relevant = threeCards.map(function(c) {return c[attr];});
-    return mori.count(mori.set(relevant));
+    var relevant = threeCards.map(function(card) {return mori.get(card, attr);});
+    var distinct = mori.count(mori.set(relevant));
+    return distinct === 1 || distinct === mori.count(threeCards);
 }
