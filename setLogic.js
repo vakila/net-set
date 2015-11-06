@@ -43,7 +43,7 @@ function areAttrsOK(cards) {
     // what's the better way?
     return m.map(
         function(a) {return isAttrOK(cards, a)},
-        m.vector(["number", "shape", "fill", "color"])
+        m.vector("number", "shape", "fill", "color")
     );
 }
 function isAttrOK(cards, attr) {
