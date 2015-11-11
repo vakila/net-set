@@ -1,3 +1,4 @@
+"use strict";
 var m = require('mori');
 
 var ATTRIBUTES = m.hashMap(
@@ -12,29 +13,34 @@ function cycle(current, max) {
     return (current === max ? 0 : current + 1);
 }
 
-function convertCardNumber(n) {
+function convertNumberToBase3(n) {
     var asString = (n).toString(3);
     var padded = ('0000'+asString).substring(asString.length);
     var asVector = m.map(function(i) {return parseInt(padded.charAt(i));}, m.vector(0,1,2,3))
-    console.log(n, asString, padded, asVector);
+    // console.log(n, asString, padded, asVector);
     return asVector;
 }
 
 function getCardFromNumber(n) {
-    return exports.makeCard.apply(null, m.intoArray(convertCardNumber(n)));
+    return exports.makeCard.apply(null, m.intoArray(convertNumberToBase3(n)));
+}
+
+function shuffle(deck) {
+    return m.sortBy(function(c) { return Math.random() }, deck);
 }
 
 exports.makeDeck = function() {
     // Functional version with correct counting using base 3
     var names = getAttributeNames();
     var deck = m.map(getCardFromNumber, m.range(81));
-    return deck;
+    var shuffled = shuffle(deck)
+    return shuffle(deck);
 }
 
 exports.makeDeck1 = function() {
     // More functional version
     var names = getAttributeNames();
-    console.log("names:", names);
+    // console.log("names:", names);
 
     var indices = m.vector(0,0,0,0);
 
@@ -48,7 +54,7 @@ exports.makeDeck1 = function() {
     var deck = m.vector();
 
     for (var cardNumber = 0; cardNumber < deckSize; cardNumber++) {
-        console.log(cardNumber, indices);
+        // console.log(cardNumber, indices);
         var newCard = exports.makeCard.apply(null, m.intoArray(indices))
         //console.log("newCard:", newCard);
         deck = m.conj(deck, newCard);
