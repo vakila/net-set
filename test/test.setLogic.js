@@ -3,18 +3,27 @@ var mori = require('mori');
 var setLogic = require('./../setLogic.js');
 
 describe('makeDeck', function(){
-    it('should return a mori vector', function(){
-        assert(mori.isVector(setLogic.makeDeck()));
+    it('should return a mori sequence', function(){
+        assert(mori.isSeq(setLogic.makeDeck()));
     });
 
-    it('should return a vector with 81 elements', function(){
-        assert.equal(mori.count(setLogic.makeDeck()),81);
+    it('should return a sequence with 81 cards', function(){
+        var deck = setLogic.makeDeck();
+        assert.equal(mori.count(deck),81);
+        assert(mori.hasKey(mori.nth(deck,0), "number"));
     });
 
-    it('should contain no duplicate elements', function(){
+    it('should contain no duplicate cards', function(){
         //TODO Need to make sure that this test is sufficient
         assert.equal(mori.count(mori.distinct(setLogic.makeDeck())),81);
-    })
+    });
+
+    it('should contain cards in random order', function(){
+        var shuffled = setLogic.makeDeck();
+        // Can't think of a way to test this other than visual inspection
+        mori.each(shuffled, function(c){ console.log("shuffled: ", c); });
+    });
+
 })
 
 describe('makeCard', function() {
