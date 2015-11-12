@@ -1,7 +1,65 @@
 /*** GENERAL ***/
 
 /*** SYMBOLS ***/
-/* Are symbols created by CSS? Or JS? (probably SVGs w/ JS?)
+.shape {
+  width: 80px;
+  height: 40px;
+}
+
+rect {
+  width: 100%;
+  height: 100%;
+  fill: inherit;
+  stroke: inherit;
+  stroke-width: 10px;
+}
+
+.solid-red {
+  fill: red;
+}
+
+.solid-green {
+  fill: green;
+}
+
+.solid-purple {
+  fill: purple;
+}
+
+.open-red, .shaded-red,
+.open-green, .shaded-green,
+.open-purple, .shaded-purple {
+  fill: transparent;
+}
+
+.open-red, .shaded-red {
+  stroke: red;
+}
+
+.open-green, .shaded-green {
+  stroke: green;
+}
+
+.open-purple, .shaded-purple {
+  stroke: purple;
+}
+
+.shaded-green {
+  background: linear-gradient(
+                to bottom,
+                white,
+                white 30%,
+                green 30%,
+                green 70%,
+                white 70%,
+                white
+              );
+  background-size: 100% 20%;
+}
+
+
+
+
 
 
 /*** CARDS ***/
