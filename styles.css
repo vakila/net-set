@@ -2,8 +2,8 @@
 
 /*** SYMBOLS ***/
 .shape {
-  width: 80px;
-  height: 40px;
+  width: 60%;
+  height: 30%;
 }
 
 rect {
@@ -11,7 +11,7 @@ rect {
   height: 100%;
   fill: inherit;
   stroke: inherit;
-  stroke-width: 10px;
+  stroke-width: 7px;
 }
 
 .solid-red {
@@ -46,7 +46,7 @@ rect {
 
 .shaded-green {
   background: linear-gradient(
-                to bottom,
+                to right,
                 white,
                 white 30%,
                 green 30%,
@@ -54,7 +54,32 @@ rect {
                 white 70%,
                 white
               );
-  background-size: 100% 20%;
+  background-size: 10% 10%;
+}
+
+.shaded-red {
+  background: linear-gradient(
+                to right,
+                white,
+                white 30%,
+                red 30%,
+                red 70%,
+                white 70%,
+                white
+              );
+  background-size: 10% 10%;
+}
+.shaded-purple {
+  background: linear-gradient(
+                to right,
+                white,
+                white 30%,
+                purple 30%,
+                purple 70%,
+                white 70%,
+                white
+              );
+  background-size: 10% 10%;
 }
 
 
@@ -64,11 +89,44 @@ rect {
 
 /*** CARDS ***/
 #board {
-
+  background-color: #b3b3ff;
+  padding: 5vh;
+  width: 100%;
+  height: 70vh;
+  text-align: center;
 }
 
 .card {
+  display: inline-block; /* to center in board */
+  margin: 1%;
+  background-color: white;
+  border: 2px solid black;
+  border-radius: 10px 10px 10px 10px;
+  -moz-border-radius: 10px 10px 10px 10px;
+  -webkit-border-radius: 10px 10px 10px 10px;
+  position: relative;
+  width: 10%;
+  /*height: 30%;
+  padding: 10px;*/
+}
 
+.card:before { /* for maintaining card aspect ratio */
+  content: "";
+	display: block;
+	padding-top: 156%; 	/* 3.5":2.25" h:w ratio... 3.5/2.25 = 1.55556 */
+}
+
+.card-content {
+  position:  absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+  /*top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);*/
+  text-align: center;
+  padding-top: 20%;
 }
 
 
