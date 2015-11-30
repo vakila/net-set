@@ -18,7 +18,7 @@ var gameState = game.getInitialState();
 
 app.get('/', function(req, res) {
   var stateObject = m.toJs(gameState);
-  console.log('initialState:', stateObject);
+  console.log('gameState:', stateObject);
   res.render('index', stateObject);
 });
 
@@ -41,6 +41,8 @@ io.on('connection', function(socket){
   });
   socket.on('card click', function(click){
     console.log('CARD CLICK', click.user, click.card);
+    gameState = game.claimCard(click.user, click.card, gameState);
+    console.log('gameState.players.' + click.user + '.claimed:', m.getIn(gameState, ['players', click.user, 'claimed']));
     io.emit('card click', click);
   });
 });
