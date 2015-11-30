@@ -1,8 +1,8 @@
 div#board
-    each card in dealt
-        div(class="card")
+    each card, i in dealt
+        div(class="card" id=i)
             div(class="card-content")
+                p= card.number
                 p= card.color
                 p= card.fill
-                p= card.number
                 p= card.shape
