@@ -2,6 +2,7 @@ var express = require('express');
 var http = require('http');
 var socketIO = require('socket.io');
 var path = require('path');
+var m = require('mori');
 var game = require('./game.js');
 
 var app = express();
@@ -16,7 +17,8 @@ app.use(express.static('public'));
 var gameState = game.getInitialState();
 
 app.get('/', function(req, res) {
-  res.render('index', gameState);
+  var dealt = m.toJs(m.get(gameState, 'dealt'));
+  res.render('index', {'dealt': dealt});
 });
 
 io.on('connection', function(socket){
