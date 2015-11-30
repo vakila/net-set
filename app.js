@@ -11,6 +11,8 @@ var io = socketIO(server);
 app.set('views', path.join(__dirname, 'templates'));
 app.set('view engine', 'jade');
 
+app.use(express.static('public'));
+
 app.get('/', function(req, res) {
   var state0 = game.getInitialState()
   res.render('index', state0);
