@@ -12,9 +12,10 @@ function alertClicked() {
 
 function addCardClickListeners() {
     var cards = document.getElementsByClassName("card");
+    // m.map(function(n) , cards);
     for (var i = 0; i < cards.length; i++) {
-    cards[i].addEventListener("click", alertClicked);
-}
+        cards[i].addEventListener("click", alertClicked);
+    }
 }
 
 addCardClickListeners();
