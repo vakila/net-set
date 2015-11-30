@@ -32,7 +32,7 @@ exports.removePlayer = function(name, oldState) {
 }
 
 exports.claimCard = function(player, cardID, oldState) {
-    var card = m.nth(m.get(oldState, 'dealt'), cardID);
+    var card = m.nth(m.get(oldState, 'dealt'), Number(cardID));
     var oldClaimed = m.getIn(oldState, ['players', player, 'claimed']);
     var newClaimed = m.conj(oldClaimed, card);
     return m.assocIn(oldState, ['players', player, 'claimed'], newClaimed);
