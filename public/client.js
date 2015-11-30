@@ -1,16 +1,24 @@
 "use strict";
 
-// Clicking on cards
-function alertClicked() {
-    alert("you clicked");
-}
+var socket = io();
 
-function addCardClickListeners() {
-    var cards = document.getElementsByClassName("card");
-    // m.map(function(n) , cards);
-    for (var i = 0; i < cards.length; i++) {
-        cards[i].addEventListener("click", alertClicked);
-    }
-}
+var username;
+$(window).load(function() {
+    username = prompt("Please enter your name");
+    socket.emit('log on', username);
+});
 
-addCardClickListeners();
+$(window).on('beforeunload', function() {
+  socket.emit('log off', username);
+});
+
+
+function userActivity(name, joinedOrLeft) {
+  alert(name + " " + joinedOrLeft + " the game");
+}
+socket.on('log on', function(name) {
+  userActivity(name, "joined");
+});
+socket.on('log off', function(name) {
+  userActivity(name, "left");
+});

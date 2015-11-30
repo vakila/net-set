@@ -18,6 +18,21 @@ app.get('/', function(req, res) {
   res.render('index', state0);
 })
 
+io.on('connection', function(socket){
+  console.log('CONNECT', socket.id);
+  socket.on('log on', function(name){
+    console.log('LOG ON', name);
+    socket.broadcast.emit('log on', name);
+  })
+  socket.on('log off', function(name) {
+    console.log('LOG OFF', name);
+    socket.broadcast.emit('log off', name);
+  })
+  socket.on('disconnect', function(){
+    console.log('DISCONNECT', socket.id);
+  });
+});
+
 server.listen(3000, function() {
   console.log("listening on port 3000");
 });
