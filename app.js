@@ -17,8 +17,8 @@ app.use(express.static('public'));
 var gameState = game.getInitialState();
 
 app.get('/', function(req, res) {
-  var dealt = m.toJs(m.get(gameState, 'dealt'));
-  res.render('index', {'dealt': dealt});
+  var stateObject = m.toJs(gameState);
+  res.render('index', stateObject);
 });
 
 io.on('connection', function(socket){
