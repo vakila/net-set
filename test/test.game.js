@@ -49,3 +49,14 @@ describe('removePlayer', function(){
         assert.equal(m.hasKey(m.get(removed, 'players')), false);
     });
 });
+
+describe('claimCard', function(){
+    it('should add the card object to the players.player.claimed set', function(){
+        var state = game.addPlayer('Anjana', game.getInitialState());
+        var claimedState = game.claimCard('Anjana', 3, state);
+        var claimed = m.getIn(claimedState, ['players', 'Anjana', 'claimed']);
+        assert.equal(m.count(claimed), 1);
+        assert(m.hasKey(m.first(claimed), 'color'));
+        assert(m.equals(m.first(claimed), m.nth(m.get(claimedState, 'dealt'), 3)));
+    });
+});

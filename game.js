@@ -31,6 +31,13 @@ exports.removePlayer = function(name, oldState) {
     return m.assoc(oldState, 'players', newPlayers);
 }
 
-function updateScore(name, newScore, oldState) {
+exports.claimCard = function(player, cardID, oldState) {
+    var card = m.nth(m.get(oldState, 'dealt'), cardID);
+    var oldClaimed = m.getIn(oldState, ['players', player, 'claimed']);
+    var newClaimed = m.conj(oldClaimed, card);
+    return m.assocIn(oldState, ['players', player, 'claimed'], newClaimed);
+}
 
+function updateScore(name, newScore, oldState) {
+    //TODO
 }
