@@ -22,9 +22,15 @@ function deal(n, gameState) {
     return gameState;
 }
 
+exports.addPlayer = function(name, oldState) {
+    return m.assocIn(oldState, ['players', name], m.hashMap('score', 0, 'claimed', m.set()));
+}
 
-function updateState(oldState) {
-    var newState; // = doStuff(oldState);
-    //TODO
-    return newState;
+exports.removePlayer = function(name, oldState) {
+    var newPlayers = m.dissoc(m.get(oldState, 'players'), name)
+    return m.assoc(oldState, 'players', newPlayers);
+}
+
+function updateScore(name, newScore, oldState) {
+
 }

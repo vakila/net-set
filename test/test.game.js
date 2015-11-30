@@ -22,3 +22,30 @@ describe('getInitialState', function(){
         assert(m.isMap(m.get(state, 'players')));
     });
 });
+
+describe('addPlayer', function(){
+    it('should add the name to the players hashMap', function(){
+        var state0 = game.getInitialState();
+        var state1 = game.addPlayer('Anjana', state0);
+        assert(m.hasKey(m.get(state1, 'players'), 'Anjana'));
+    });
+    it('should associate the name in players with a proper hashMap', function(){
+        var state0 = game.getInitialState();
+        var state1 = game.addPlayer('Anjana', state0);
+        var playerMap = m.getIn(state1, ['players', 'Anjana']);
+        assert(m.isMap(playerMap));
+        assert(m.hasKey(playerMap, 'score'));
+        assert(m.hasKey(playerMap, 'claimed'));
+        assert.equal(m.get(playerMap, 'score'), 0);
+        assert.equal(m.get(playerMap, 'claimed'), m.set());
+    });
+});
+
+describe('removePlayer', function(){
+    it('should remove the name from the players hashMap', function(){
+        var state0 = game.getInitialState();
+        var added = game.addPlayer('Anjana', state0);
+        var removed = game.removePlayer('Anjana', added);
+        assert.equal(m.hasKey(m.get(removed, 'players')), false);
+    });
+});
