@@ -31,6 +31,9 @@ io.on('connection', function(socket){
   socket.on('disconnect', function(){
     console.log('DISCONNECT', socket.id);
   });
+  socket.on('card click', function(click){
+    console.log('CARD CLICK', click.user, click.card);
+  });
 });
 
 server.listen(3000, function() {
