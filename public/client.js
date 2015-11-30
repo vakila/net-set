@@ -32,7 +32,9 @@ function getCardID(targetNode) {
 }
 $('.card').click(function(event) {
   var cardID = getCardID(event.target);
-
-  console.log(username, "clicked card", cardID);
   socket.emit('card click', {'user':username, 'card':cardID});
+});
+
+socket.on('card click', function(click) {
+  console.log(click.user, "clicked card", click.card);
 });

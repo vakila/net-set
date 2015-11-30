@@ -33,6 +33,7 @@ io.on('connection', function(socket){
   });
   socket.on('card click', function(click){
     console.log('CARD CLICK', click.user, click.card);
+    io.emit('card click', click);
   });
 });
 
