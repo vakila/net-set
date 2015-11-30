@@ -16,4 +16,9 @@ describe('getInitialState', function(){
         assert.equal(m.count(undealt), 69);
         assert(m.hasKey(m.nth(undealt,0), "color"));
     });
+    it('should have a players map', function(){
+        var state = game.getInitialState();
+        assert(m.hasKey(state, 'players'));
+        assert(m.isMap(m.get(state, 'players')));
+    });
 });
