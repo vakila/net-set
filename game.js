@@ -5,7 +5,7 @@ exports.getInitialState = function() {
     var deck = set.makeDeck();
     var dealt = m.take(12, deck);
     var undealt = m.drop(12, deck);
-    var gameState = {'dealt': dealt, 'undealt': undealt};
+    var gameState = {'dealt': m.toJs(dealt), 'undealt': undealt};
     return gameState;
 }
 
