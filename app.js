@@ -13,10 +13,11 @@ app.set('view engine', 'jade');
 
 app.use(express.static('public'));
 
+var gameState = game.getInitialState();
+
 app.get('/', function(req, res) {
-  var state0 = game.getInitialState()
-  res.render('index', state0);
-})
+  res.render('index', gameState);
+});
 
 io.on('connection', function(socket){
   console.log('CONNECT', socket.id);
