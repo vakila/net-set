@@ -18,6 +18,7 @@ var gameState = game.getInitialState();
 
 app.get('/', function(req, res) {
   var stateObject = m.toJs(gameState);
+  console.log('initialState:', stateObject);
   res.render('index', stateObject);
 });
 
@@ -25,10 +26,14 @@ io.on('connection', function(socket){
   console.log('CONNECT', socket.id);
   socket.on('log on', function(name){
     console.log('LOG ON', name);
+    gameState = game.addPlayer(name, gameState);
+    console.log('gameState.players:', m.get(gameState, 'players'));
     socket.broadcast.emit('log on', name);
   })
   socket.on('log off', function(name) {
     console.log('LOG OFF', name);
+    gameState = game.removePlayer(name, gameState);
+    console.log('gameState.players:', m.get(gameState, 'players'));
     socket.broadcast.emit('log off', name);
   })
   socket.on('disconnect', function(){
