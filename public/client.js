@@ -23,7 +23,6 @@ socket.on('log off', function(name) {
 });
 
 function getCardID(targetNode) {
-  console.log(targetNode);
   if (targetNode.className === 'card') {
     return targetNode.id;
   }
@@ -31,10 +30,9 @@ function getCardID(targetNode) {
     return getCardID(targetNode.parentNode);
   }
 }
-
 $('.card').click(function(event) {
   var cardID = getCardID(event.target);
 
   console.log(username, "clicked card", cardID);
-  socket.emit('card click', username, cardID);
+  socket.emit('card click', {'user':username, 'card':cardID});
 });
