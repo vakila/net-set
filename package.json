@@ -1,0 +1,26 @@
+{
+  "name": "net-set",
+  "version": "1.0.0",
+  "description": "A networked multiplayer game inspired by the card game Set® ",
+  "main": "app.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "mori": "^0.3.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vakila/net-set.git"
+  },
+  "author": "Anjana Vakil",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/vakila/net-set/issues"
+  },
+  "homepage": "https://github.com/vakila/net-set#readme"
+}
