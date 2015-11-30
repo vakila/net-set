@@ -89,10 +89,10 @@ rect {
 
 /*** CARDS ***/
 #board {
-  background-color: #b3b3ff;
+  /*background-color: #b3b3ff;
   padding: 5vh;
   width: 100%;
-  height: 70vh;
+  height: 70vh;*/
   text-align: center;
 }
 
