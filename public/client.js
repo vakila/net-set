@@ -13,7 +13,7 @@ $(window).on('beforeunload', function() {
 });
 
 function userActivity(name, joinedOrLeft) {
-  alert(name + " " + joinedOrLeft + " the game");
+  console.log(name + " " + joinedOrLeft + " the game");
 }
 socket.on('log on', function(name) {
   userActivity(name, "joined");
