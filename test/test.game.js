@@ -60,3 +60,15 @@ describe('claimCard', function(){
         assert(m.equals(m.first(claimed), m.nth(m.get(claimedState, 'dealt'), 3)));
     });
 });
+
+describe('playerHasSet', function() {
+    it('should return null if player has less than 3 claimed cards', function(){
+        var state = game.addPlayer('Anjana', game.getInitialState());
+        assert.equal(game.playerHasSet('Anjana', state), null);
+    });
+    it('should return boolean if player has 3 cards', function(){
+        var state = game.addPlayer('Anjana', game.getInitialState());
+        var claimedState = game.claimCard('Anjana', 1, game.claimCard('Anjana', 2, game.claimCard('Anjana', 3, state)));
+        assert.equal(typeof(game.playerHasSet('Anjana', claimedState)), 'boolean');
+    });
+});

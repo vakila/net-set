@@ -38,6 +38,16 @@ exports.claimCard = function(player, cardID, oldState) {
     return m.assocIn(oldState, ['players', player, 'claimed'], newClaimed);
 }
 
-function updateScore(name, newScore, oldState) {
-    //TODO
+exports.playerHasSet = function(player, oldState) {
+    // returns null (too few cards), true, or false
+    var claimed = m.getIn(oldState, ['players', player, 'claimed']);
+    console.log("claimed:", claimed);
+    if (m.count(claimed) < 3) {
+        console.log("playerHasSet: null");
+        return null;
+    }
+    else {
+        console.log("playerHasSet:", set.isSet(claimed));
+        return set.isSet(claimed);
+    }
 }
