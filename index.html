@@ -16,7 +16,7 @@
 <h1>Welcome to Net-Set</h1>
 
 <div id="board">
-
+  <div id="row0" class="row">
     <div id="(0,0)" class="card"> <!-- "card" ID could be space on board -->
         <div id="1" class="card-content"> <!-- "card-content" ID could be card's position in deck -->
             <svg class="shape open-red rectangle">
@@ -48,12 +48,18 @@
             </svg>
         </div>
     </div>
+  </div>
 
-    <br><!-- TODO better layout with flexbox or stg -->
-
+  <div id="row1" class="row">
     <div id="(1,0)" class="card"> <!-- "card" ID could be space on board -->
         <div id="1" class="card-content"> <!-- "card-content" ID could be card's position in deck -->
-            <svg class="shape solid-red">
+            <svg class="shape solid-red rectangle">
+                <rect/>
+            </svg>
+            <svg class="shape solid-red rectangle">
+                <rect/>
+            </svg>
+            <svg class="shape solid-red rectangle">
                 <rect/>
             </svg>
         </div>
@@ -61,6 +67,9 @@
 
     <div id="(1,1)" class="card"> <!-- "card" ID could be space on board -->
         <div id="2" class="card-content"> <!-- "card-content" ID could be card's position in deck -->
+            <svg class="shape solid-red diamond">
+                <polygon points="3,20 35,3 67,20 35,37"/>
+            </svg>
             <svg class="shape solid-red diamond">
                 <polygon points="3,20 35,3 67,20 35,37"/>
             </svg>
@@ -77,14 +86,17 @@
 
     <div id="(1,3)" class="card"> <!-- "card" ID could be space on board -->
         <div id="1" class="card-content"> <!-- "card-content" ID could be card's position in deck -->
-            <svg class="shape solid-red">
+            <svg class="shape solid-red rectangle">
+                <rect/>
+            </svg>
+            <svg class="shape solid-red rectangle">
                 <rect/>
             </svg>
         </div>
     </div>
+  </div>
 
-    <br><!-- TODO better layout with flexbox or stg -->
-
+  <div id="row2" class="row">
     <div id="(2,0)" class="card"> <!-- "card" ID could be space on board -->
         <div id="1" class="card-content"> <!-- "card-content" ID could be card's position in deck -->
             <svg class="shape shaded-red">
@@ -116,14 +128,15 @@
             </svg>
         </div>
     </div>
-
-    <br><!-- TODO better layout with flexbox or stg -->
-
+  </div>
 
 
+
+</div> <!-- end board -->
 
 <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% --->
     <hr>
+<div id="testing">
     <div class="card">
         <div class="card-content">
             <svg class="shape shaded-green">
