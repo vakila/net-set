@@ -51,3 +51,9 @@ exports.playerHasSet = function(player, oldState) {
         return set.isSet(claimed);
     }
 }
+
+function updateScore(player, scoreChange, oldState) {
+    return m.updateIn(oldState, ['players', player, 'score'], function(oldScore){
+        return oldScore + scoreChange;
+    });
+}
