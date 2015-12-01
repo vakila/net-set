@@ -6,7 +6,7 @@
   height: 40px;
 }
 
-rect, polygon {
+rect, polygon, ellipse {
   width: 100%;
   height: 100%;
   fill: inherit;
@@ -15,7 +15,7 @@ rect, polygon {
 rect {
   stroke-width: 6px;
 }
-polygon {
+polygon, ellipse {
   stroke-width: 3px;
 }
 
