@@ -1,0 +1,85 @@
+.shape {
+  width: 70px;
+  height: 40px;
+}
+
+rect, polygon, ellipse {
+  width: 100%;
+  height: 100%;
+  fill: inherit;
+  stroke: inherit;
+}
+rect {
+  stroke-width: 6px;
+}
+polygon, ellipse {
+  stroke-width: 3px;
+}
+
+.open-red, .shaded-red, .solid-red {
+  stroke: red;
+}
+
+.open-green, .shaded-green, .solid-green {
+  stroke: green;
+}
+
+.open-purple, .shaded-purple, .solid-purple {
+  stroke: purple;
+}
+
+.solid-red {
+  fill: red;
+}
+
+.solid-green {
+  fill: green;
+}
+
+.solid-purple {
+  fill: purple;
+}
+
+.open-red, .shaded-red,
+.open-green, .shaded-green,
+.open-purple, .shaded-purple {
+  fill: transparent;
+}
+
+.shaded-green {
+  background: linear-gradient(
+                to right,
+                white,
+                white 30%,
+                green 30%,
+                green 70%,
+                white 70%,
+                white
+              );
+  background-size: 10% 10%;
+}
+
+.shaded-red {
+  background: linear-gradient(
+                to right,
+                white,
+                white 30%,
+                red 30%,
+                red 70%,
+                white 70%,
+                white
+              );
+  background-size: 10% 10%;
+}
+.shaded-purple {
+  background: linear-gradient(
+                to right,
+                white,
+                white 30%,
+                purple 30%,
+                purple 70%,
+                white 70%,
+                white
+              );
+  background-size: 10% 10%;
+}
