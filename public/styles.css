@@ -6,12 +6,17 @@
   height: 40px;
 }
 
-rect {
+rect, polygon {
   width: 100%;
   height: 100%;
   fill: inherit;
   stroke: inherit;
-  stroke-width: 7px;
+}
+rect {
+  stroke-width: 6px;
+}
+polygon {
+  stroke-width: 3px;
 }
 
 .solid-red {
