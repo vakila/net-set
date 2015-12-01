@@ -4,7 +4,6 @@
 .shape {
   width: 70px;
   height: 40px;
-  border: 1px solid black;
 }
 
 rect, polygon, ellipse {
