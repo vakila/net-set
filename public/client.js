@@ -38,3 +38,7 @@ $('.card').click(function(event) {
 socket.on('card click', function(click) {
   console.log(click.user, "clicked card", click.card);
 });
+
+
+// TODO update DOM on events using underscore templates, e.g.:
+// var titleNode = $(tmpl("<h1><%= title %></h1>", {title:"My site"}));
