@@ -1,8 +1,9 @@
 /*!
-    Underscore.js templates as a standalone implementation. 
-    JavaScript micro-templating, similar to John Resig's implementation. 
+    Underscore.js templates as a standalone implementation.
+    JavaScript micro-templating, similar to John Resig's implementation.
     Underscore templates documentation: http://documentcloud.github.com/underscore/#template
     Modifyed by marlun78
+    Source: https://gist.github.com/marlun78/2701678
 */
 (function () {
 
