@@ -4,6 +4,7 @@
 .shape {
   width: 70px;
   height: 40px;
+  border: 1px solid black;
 }
 
 rect, polygon, ellipse {
@@ -17,6 +18,18 @@ rect {
 }
 polygon, ellipse {
   stroke-width: 3px;
+}
+
+.open-red, .shaded-red, .solid-red {
+  stroke: red;
+}
+
+.open-green, .shaded-green, .solid-green {
+  stroke: green;
+}
+
+.open-purple, .shaded-purple, .solid-purple {
+  stroke: purple;
 }
 
 .solid-red {
@@ -35,18 +48,6 @@ polygon, ellipse {
 .open-green, .shaded-green,
 .open-purple, .shaded-purple {
   fill: transparent;
-}
-
-.open-red, .shaded-red {
-  stroke: red;
-}
-
-.open-green, .shaded-green {
-  stroke: green;
-}
-
-.open-purple, .shaded-purple {
-  stroke: purple;
 }
 
 .shaded-green {
