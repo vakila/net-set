@@ -1,41 +1,65 @@
 #board {
-  /*background-color: #b3b3ff;
-  padding: 5vh;
+  background-color: grey;
+  /*padding: 5vh;*/
   width: 100%;
-  height: 70vh;*/
-  text-align: center;
+  /*height: 70vh;*/
+  /*text-align: center;*/
+  display: flex;
+  flex-direction:column;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.row {
+  display: flex;
+
 }
 
 .card {
-  display: inline-block; /* to center in board */
-  margin: 1%;
+  /*display: inline-block; /* to center in board */
+  /*display: flex;
+  flex-wrap: column;
+  align-items: center; /* vertical
+  justify-content: center; /* horizontal */
+  margin: 5px;
+  width: 110px;
+  height: 170px;
   background-color: white;
   border: 2px solid black;
   border-radius: 10px 10px 10px 10px;
   -moz-border-radius: 10px 10px 10px 10px;
   -webkit-border-radius: 10px 10px 10px 10px;
-  position: relative;
+  /*position: relative;
+  margin: 1%;
   width: 10%;
-  /*height: 30%;
+  height: 30%;
   padding: 10px;*/
   cursor:pointer; /* makes hand cursor to show clickable */
 }
 
-.card:before { /* for maintaining card aspect ratio */
+/*.card:before { /* for maintaining card aspect ratio
   content: "";
 	display: block;
-	padding-top: 156%; 	/* 3.5":2.25" h:w ratio... 3.5/2.25 = 1.55556 */
-}
+	padding-top: 156%; 	/* 3.5":2.25" h:w ratio... 3.5/2.25 = 1.55556
+}*/
 
 .card-content {
-  position:  absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+  /*position:  absolute;
 	top: 0;
 	left: 0;
 	bottom: 0;
 	right: 0;
-  /*top: 50%;
+  top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);*/
+  transform: translate(-50%, -50%);
   text-align: center;
   padding-top: 20%;
-}
+}*/
