@@ -19,14 +19,17 @@ polygon, ellipse {
 
 .open-red, .shaded-red, .solid-red {
   stroke: red;
+  /*stroke: #ff6400;*/ /* orange */
 }
 
 .open-green, .shaded-green, .solid-green {
   stroke: green;
+  /*stroke: #00c8c8;*/ /* aqua */
 }
 
 .open-purple, .shaded-purple, .solid-purple {
   stroke: purple;
+  /*stroke: #640064;*/ /* darker purple */
 }
 
 .solid-red {
