@@ -4,6 +4,7 @@
   margin: 0px auto;
   width: 70%;
   height: 100vh;
+  max-height: 730px;
   /*text-align: center;*/
   display: flex;
   flex-wrap: wrap;
