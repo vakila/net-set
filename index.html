@@ -18,7 +18,7 @@
 <div id="board">
     <div class="card"> <!-- "card" ID could be space on board -->
         <div id="1" class="card-content"> <!-- "card-content" ID could be card's position in deck -->
-            <svg class="shape open-red rectangle">
+            <svg class="shape open-green rectangle">
                 <rect/>
             </svg>
         </div>
@@ -34,7 +34,10 @@
 
     <div class="card"> <!-- "card" ID could be space on board -->
         <div id="3" class="card-content"> <!-- "card-content" ID could be card's position in deck -->
-            <svg class="shape open-red pill">
+            <svg class="shape open-purple pill">
+                <ellipse cx="35" cy="20" rx="33" ry="18"/>
+            </svg>
+            <svg class="shape open-purple pill">
                 <ellipse cx="35" cy="20" rx="33" ry="18"/>
             </svg>
         </div>
@@ -64,10 +67,10 @@
 
     <div class="card"> <!-- "card" ID could be space on board -->
         <div id="6" class="card-content"> <!-- "card-content" ID could be card's position in deck -->
-            <svg class="shape solid-red diamond">
+            <svg class="shape open-purple diamond">
                 <polygon points="3,20 35,3 67,20 35,37"/>
             </svg>
-            <svg class="shape solid-red diamond">
+            <svg class="shape open-purple diamond">
                 <polygon points="3,20 35,3 67,20 35,37"/>
             </svg>
         </div>
@@ -75,7 +78,7 @@
 
     <div class="card"> <!-- "card" ID could be space on board -->
         <div id="7" class="card-content"> <!-- "card-content" ID could be card's position in deck -->
-            <svg class="shape solid-red pill">
+            <svg class="shape open-green pill">
                 <ellipse cx="35" cy="20" rx="33" ry="18"/>
             </svg>
         </div>
@@ -83,10 +86,10 @@
 
     <div class="card"> <!-- "card" ID could be space on board -->
         <div id="8" class="card-content"> <!-- "card-content" ID could be card's position in deck -->
-            <svg class="shape solid-red rectangle">
+            <svg class="shape solid-green rectangle">
                 <rect/>
             </svg>
-            <svg class="shape solid-red rectangle">
+            <svg class="shape solid-green rectangle">
                 <rect/>
             </svg>
         </div>
@@ -94,7 +97,7 @@
 
     <div class="card"> <!-- "card" ID could be space on board -->
         <div id="9" class="card-content"> <!-- "card-content" ID could be card's position in deck -->
-            <svg class="shape shaded-red">
+            <svg class="shape shaded-red rectangle">
                 <rect/>
             </svg>
         </div>
@@ -102,7 +105,7 @@
 
     <div class="card"> <!-- "card" ID could be space on board -->
         <div id="10" class="card-content"> <!-- "card-content" ID could be card's position in deck -->
-            <svg class="shape shaded-red diamond">
+            <svg class="shape solid-purple diamond">
                 <polygon points="3,20 35,3 67,20 35,37"/>
             </svg>
         </div>
@@ -110,7 +113,7 @@
 
     <div class="card"> <!-- "card" ID could be space on board -->
         <div id="11" class="card-content"> <!-- "card-content" ID could be card's position in deck -->
-            <svg class="shape shaded-red pill">
+            <svg class="shape solid-red pill">
                 <ellipse cx="35" cy="20" rx="33" ry="18"/>
             </svg>
         </div>
@@ -118,7 +121,7 @@
 
     <div class="card"> <!-- "card" ID could be space on board -->
         <div id="12" class="card-content"> <!-- "card-content" ID could be card's position in deck -->
-            <svg class="shape shaded-red">
+            <svg class="shape shaded-green rectangle">
                 <rect/>
             </svg>
         </div>
@@ -158,8 +161,13 @@
 
     <div class="card">
         <div class="card-content">
-            <svg class="shape solid-red">
-                <rect/>
+            <svg class="shape open-red" xmlns="http://www.w3.org/2000/svg" version="1.1">
+                <defs>
+                    <pattern id="stripe" patternUnits="userSpaceOnUse" width="10" height="10">
+                      <line fill="red" stroke="red" x1="5" y1="0" x2="5" y2="10" />
+                    </pattern>
+                </defs>
+                <rect fill="url(#mask)"/>
             </svg>
         </div>
     </div>
