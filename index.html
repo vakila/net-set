@@ -9,12 +9,41 @@
     <link rel="stylesheet" type="text/css" href="public/styles.css">
     <link rel="stylesheet" type="text/css" href="public/shapes.css">
     <link rel="stylesheet" type="text/css" href="public/cards.css">
-
 </head>
 
 <body>
-<!-- <h1>Welcome to Net-Set</h1> -->
+<div id="sidebar">
+    <h1>Net-Set</h1>
+    <p>A description or something</p>
 
+    <p><a class="button" href="">How to play</a></p>
+
+    <div id="scores">
+        <div class="player" style="background-color:#eb6420;">
+            Reindeer
+            <span class="score">2</span>
+        </div>
+
+        <div class="player" style="background-color:#009800;">
+            Witch
+            <span class="score">4</span>
+        </div>
+
+        <div class="player" style="background-color:#207de5;">
+            Biology
+            <span class="score">5</span>
+        </div>
+
+        <div class="player" style="background-color:#5319e7;">
+            Governor
+            <span class="score">3</span>
+        </div>
+    </div>
+
+
+</div>
+
+<div id="content">
 <div id="board">
     <div class="card"> <!-- "card" ID could be space on board -->
         <div id="1" class="card-content"> <!-- "card-content" ID could be card's position in deck -->
@@ -206,6 +235,7 @@
 
 
 </div> <!-- end board -->
+</div> <!-- end content -->
 
 <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% --->
     <!-- <hr>
