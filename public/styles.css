@@ -26,7 +26,6 @@ body {
   width: 75%;
   height: 100vh;
   position: fixed;
-  overflow-x: scroll;
   top: 0;
   right: 0;
   bottom: 0;
