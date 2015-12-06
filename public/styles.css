@@ -2,22 +2,80 @@
 
 body {
   font-family: sans-serif;
-  background-color: #003366;
+  background-color: #181818;  /*#003366;*/
   color: white;
 }
 
 
+/*** LAYOUT ***/
+#sidebar {
+    width: 20%;
+    max-width: 25%;
+    height: 100vh;
+    overflow-y: auto;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    background-color: #fcfcfc;
+    color: #181818;  /*#003366;*/
+    padding: 2rem;
+}
+
+#content {
+  width: 75%;
+  height: 100vh;
+  position: fixed;
+  overflow-x: scroll;
+  top: 0;
+  right: 0;
+  bottom: 0;
+}
+
+/** BUTTONS **/
+
+.button {
+  color: white;
+  background-color: #181818;  /*#003366;*/
+  padding: 8px;
+  border-radius: 5px;
+}
+
+a.button {
+  text-decoration: none;
+}
 
 
 
+/*** SCORES ***/
+#scores {
+  margin-top: 3rem;
+}
 
-
-
-/*** PLAYER STUFF ***/
 .player {
+  color: white;
+  background-color: #003366;
+  padding: 8px;
+  border-radius: 5px;
+  margin: 5px auto;
+}
 
+.me {
+  padding-top:1.5em;
+  padding-bottom:1.5em;
+  /*font-weight: bold;*/
 }
 
 .score {
-
+  float: right;
 }
+
+
+/* ideas for player color options */
+/*red: #e11d21
+orange: #eb6420
+light green: #009800
+dark green: #006b75
+light blue: #207de5
+dark blue: #0052cc
+purple: #5319e7*/
