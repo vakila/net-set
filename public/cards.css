@@ -61,6 +61,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  position: relative;
 }
   /*position:  absolute;
 	top: 0;
@@ -73,3 +74,22 @@
   text-align: center;
   padding-top: 20%;
 }*/
+
+.markers {
+  position: absolute;
+  top: -10px;
+  left: 0px;
+  right: 0px;
+  text-align:center;
+}
+
+.marker {
+  width:20px;
+  height:20px;
+  margin: 0px -7px;
+}
+
+.marker polygon {
+  stroke: white;
+  stroke-width: 1px;
+}
