@@ -317,8 +317,24 @@
     </svg>
 </div-->
 
+<!-- <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script> -->
+<script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+<script src="public/underscore-1.3.3-templates.js"></script>
+<script src="public/client.js"></script>
 
-<script src="frontend.js"></script>
+<script id="cardContentTemplate" type="text/template">
+    <div id="<%= cardID %>" class="card-content">
+        <div class="markers"></div>
+        <%= svgShapes %>
+    </div>
+</script>
+
+<script id="svgTemplate" type="text/template">
+    <svg class="shape <%= card.fill %>-<%= card.color %> <%= card.shape %>">
+        <%= svgContents %>
+    </svg>
+</script>
+
 </body>
 
 </html>
