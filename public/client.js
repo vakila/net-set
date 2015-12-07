@@ -42,3 +42,25 @@ socket.on('card click', function(click) {
 
 // TODO update DOM on events using underscore templates, e.g.:
 // var titleNode = $(tmpl("<h1><%= title %></h1>", {title:"My site"}));
+
+function updateCardContent(oldID, newID, newCard) {
+    $('#'+oldID).replaceWith(getCardContent(newID, newCard));
+}
+
+function getCardContent(newID, newCard) {
+    var template = $('#cardContentTemplate').text();
+    return $(tmpl(template,  {cardID: newID, card: newCard, svgShapes: getSVGs(card)}));
+
+}
+
+function getSVGs(card) {
+    var shapes = {pill: '<ellipse cx="35" cy="20" rx="33" ry="18"/>',
+                  diamond: '<polygon points="3,20 35,3 67,20 35,37"/>',
+                  rectangle: "<rect/>"}
+    var svgs = "";
+    //TODO
+    // for (i=0; i<card.number; i++) {
+    //     svgs += shapes[card.shape];
+    // }
+    return svgs;
+}
