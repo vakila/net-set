@@ -57,10 +57,10 @@ function getSVGs(card) {
     var shapes = {pill: '<ellipse cx="35" cy="20" rx="33" ry="18"/>',
                   diamond: '<polygon points="3,20 35,3 67,20 35,37"/>',
                   rectangle: "<rect/>"}
+    var svgTemplate = $('#svgTemplate').text();
     var svgs = "";
-    //TODO
-    // for (i=0; i<card.number; i++) {
-    //     svgs += shapes[card.shape];
-    // }
+    for (var i=0; i<card.number; i++) {
+        svgs += tmpl(svgTemplate, {card: card, shapes: shapes});
+    }
     return svgs;
 }
