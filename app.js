@@ -27,7 +27,11 @@ app.get('/', function(req, res) {
 });
 
 io.on('connection', function(socket){
+  // CONNECT
   console.log('CONNECT', socket.id);
+  // socket.emit('load gameState', { gameState: gameState });
+
+  // LOG ON/OFF
   socket.on('log on', function(name){
     console.log('LOG ON', name);
     gameState = game.addPlayer(name, gameState);
@@ -40,9 +44,8 @@ io.on('connection', function(socket){
     console.log('gameState.players:', m.get(gameState, 'players'));
     socket.broadcast.emit('log off', name);
   })
-  socket.on('disconnect', function(){
-    console.log('DISCONNECT', socket.id);
-  });
+
+  // CARD CLICK
   socket.on('card click', function(click){
     console.log('CARD CLICK', click.user, click.card);
     gameState = game.claimCard(click.user, click.card, gameState);
@@ -65,6 +68,11 @@ io.on('connection', function(socket){
         }
     }
 
+  });
+
+  // DISCONNECT
+  socket.on('disconnect', function(){
+    console.log('DISCONNECT', socket.id);
   });
 });
 
