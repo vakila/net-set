@@ -12,7 +12,7 @@ describe('getInitialState', function(){
         var toDeal = m.get(state, 'toDeal');
         var deck = m.get(state, 'deck')
         assert.equal(m.count(toDeal), 81);
-        assert.equal(m.peek(toDeal)===0, false);
+        assert.equal(m.nth(toDeal,0)===0, false);
         assert.equal(m.count(deck), 81);
         assert(m.hasKey(m.nth(deck,0), "color"));
     });

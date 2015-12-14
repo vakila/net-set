@@ -2,7 +2,7 @@ var m = require('mori');
 var set = require('./setLogic.js');
 
 // map{'deck': <card sequence ordered by ID>,
-//     'toDeal': #queue [of card IDs as ints in random order],
+//     'toDeal': <sequence of card IDs as ints in random order>,
 //     'players': map{<name>: map{'score': <int>,
 //                                'claimed': <card sequence>}
 //                   }
@@ -18,9 +18,9 @@ exports.getInitialState = function() {
 
 function shuffleIDs(deck) {
     var idSeq = m.sortBy(function(c) { return Math.random() }, m.range(m.count(deck)));
-    var idQueue = m.into(m.queue(), idSeq);
+    // var idQueue = m.into(m.queue(), idSeq);
     // console.log("idQueue:", idQueue);
-    return idQueue;
+    return idSeq;
 }
 
 // function deal(n, gameState) {
