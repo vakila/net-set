@@ -23,7 +23,7 @@ socket.on('log off', function(name) {
 });
 
 function getCardID(targetNode) {
-  if (targetNode.className === 'card') {
+  if (targetNode.className === 'card-content') {
     return targetNode.id;
   }
   else {

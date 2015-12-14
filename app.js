@@ -12,14 +12,16 @@ var io = socketIO(server);
 app.set('views', path.join(__dirname, 'templates'));
 app.set('view engine', 'jade');
 
-app.use(express.static('public'));
+// app.use(express.static('public'));
+app.use('/public', express.static('public'));
 
 var gameState = game.getInitialState();
 
 app.get('/', function(req, res) {
-  var stateObject = m.toJs(gameState);
-  console.log('gameState:', stateObject);
-  res.render('index', stateObject);
+  // var stateObject = m.toJs(gameState);
+  // console.log('gameState:', stateObject);
+  // res.render('index', stateObject);
+  res.sendFile(__dirname + '/index.html');
 });
 
 io.on('connection', function(socket){
