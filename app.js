@@ -48,14 +48,16 @@ io.on('connection', function(socket){
     io.emit('card click', click);
     // can I turn this into a function that takes 2 callbacks?
     //game.processClick(click, function() {socket.emit("success");}, function() {socket.emit("failure");})
-    var hasCandidate = game.playerHasCandidate(click.user, gameState);
+    var hasCandidate = game.checkForCandidate(click.user, gameState);
     if (hasCandidate) {
-        var hasSet = game.playerHasSet(click.user, gameState);
-        if (hasSet === true) {
+        var hasSet = game.checkForSet(click.user, gameState);
+        if (hasSet) {
+          console.log("HAS SET", click.user, m.getIn(gameState, ['players', click.user, 'claimed']));
           // increment score etc.
           // emit set success event
         }
-        else if (hasSet === false) {
+        else {
+          console.log("NOT SET", click.user, m.getIn(gameState, ['players', click.user, 'claimed']));
           // decrement score etc.
           // emit set failure event
         }

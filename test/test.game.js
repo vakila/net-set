@@ -61,7 +61,7 @@ describe('claimCard', function(){
     });
 });
 
-describe('playerHasCandidate', function() {
+describe('checkForCandidate', function() {
     var state;
     beforeEach(function() {
         state = game.addPlayer('Leia', game.addPlayer('Luke', game.getInitialState()));
@@ -69,25 +69,25 @@ describe('playerHasCandidate', function() {
 
     it('should return true if player has 3 claimed cards', function() {
         var claimedState = game.claimCard('Leia', 1, game.claimCard('Leia', 2, game.claimCard('Leia', 3, state)));
-        assert(game.playerHasCandidate('Leia', claimedState));
+        assert(game.checkForCandidate('Leia', claimedState));
     });
 
     it('should return false if player has more or less than 3 cards', function() {
         var claimedState = game.claimCard('Leia', 1, game.claimCard('Leia', 2, game.claimCard('Leia', 3, game.claimCard('Leia', 4, state))));
         claimedState = game.claimCard('Luke', 1, state);
-        assert.equal(game.playerHasCandidate('Leia', claimedState), false);
-        assert.equal(game.playerHasCandidate('Luke', claimedState), false);
+        assert.equal(game.checkForCandidate('Leia', claimedState), false);
+        assert.equal(game.checkForCandidate('Luke', claimedState), false);
     });
 });
 
-describe('playerHasSet', function() {
+describe('checkForSet', function() {
     // it('should return null if player has less than 3 claimed cards', function(){
     //     var state = game.addPlayer('Anjana', game.getInitialState());
-    //     assert.equal(game.playerHasSet('Anjana', state), null);
+    //     assert.equal(game.checkForSet('Anjana', state), null);
     // });
     it('should return boolean if player has 3 cards', function(){
         var state = game.addPlayer('Anjana', game.getInitialState());
         var claimedState = game.claimCard('Anjana', 1, game.claimCard('Anjana', 2, game.claimCard('Anjana', 3, state)));
-        assert.equal(typeof(game.playerHasSet('Anjana', claimedState)), 'boolean');
+        assert.equal(typeof(game.checkForSet('Anjana', claimedState)), 'boolean');
     });
 });
