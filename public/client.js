@@ -30,6 +30,20 @@ function addPlayer(filledTemplate) {
   $( "#players" ).append( filledTemplate );
 }
 
+function getNextPlayerColor() {
+  var lastClasses = $( "#players" ).children().last().attr("class").toString();
+  console.log("lastClasses:", lastClasses);
+  var lastColor = lastClasses.match(/pcol-(\d)/)[1];
+  console.log("lastColor:", lastColor);
+  if (lastColor == 6) {
+      return 0;
+  } else {
+      return ++lastColor;
+  }
+
+
+}
+
 //TODO function removePlayer(name) {}
 
 function userActivity(name, joinedOrLeft) {
@@ -37,7 +51,7 @@ function userActivity(name, joinedOrLeft) {
 }
 socket.on('log on', function(name) {
   userActivity(name, "joined");
-  addPlayer(getPlayerDiv(name, 0, "pcol-6"));
+  addPlayer(getPlayerDiv(name, 0, getNextPlayerColor()));
 });
 socket.on('log off', function(name) {
   userActivity(name, "left");
