@@ -52,11 +52,13 @@ a.button {
 }
 
 .player {
-  color: white;
-  background-color: #003366;
+  color: black;
+  /*background-color: #003366;*/
   padding: 8px;
   border-radius: 5px;
   margin: 5px auto;
+  border: 1px solid black;
+  font-weight: bold;
 }
 
 .me {
@@ -69,8 +71,28 @@ a.button {
   float: right;
 }
 
+/* Player colors */
+.pcol-1 {
+  background-color: #FFBAE0; /* pale red */
+}
+.pcol-2 {
+  background-color: #FFE3A3; /* pale orange */
+}
+.pcol-3 {
+  background-color: #FCFF98; /* pale yellow */
+}
+.pcol-4 {
+  background-color: #B5FFA5; /* pale green */
+}
+.pcol-5 {
+  background-color: #A5E3FF; /* pale blue */
+}
+.pcol-6 {
+  background-color: #EEAAFC; /* pale purple */
+}
 
-/* ideas for player color options */
+
+/* other ideas for player color options */
 /*red: #e11d21
 orange: #eb6420
 light green: #009800

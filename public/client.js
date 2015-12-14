@@ -37,7 +37,7 @@ function userActivity(name, joinedOrLeft) {
 }
 socket.on('log on', function(name) {
   userActivity(name, "joined");
-  addPlayer(getPlayerDiv(name, 0, "blue"));
+  addPlayer(getPlayerDiv(name, 0, "pcol-6"));
 });
 socket.on('log off', function(name) {
   userActivity(name, "left");

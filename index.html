@@ -19,27 +19,27 @@
     <p><a class="button" href="">How to play</a></p>
 
     <div id="players">
-        <div class="player" style="background-color:#009800;">
+        <div class="player pcol-1">
             Luke
             <span class="score">2</span>
         </div>
 
-        <div class="player" style="background-color:#0052cc;">
+        <div class="player pcol-2">
             Leia
             <span class="score">4</span>
         </div>
 
-        <div class="player" style="background-color:#eb6420;">
+        <div class="player pcol-3">
             Han
             <span class="score">5</span>
         </div>
 
-        <div class="player me" style="background-color:#5319e7;">
+        <div class="player me pcol-4">
             Chewbacca
             <span class="score">3</span>
         </div>
 
-        <div class="player" style="background-color:#207de5;">
+        <div class="player pcol-5">
             Ben
             <span class="score">4</span>
         </div>
@@ -344,7 +344,7 @@
 </script>
 
 <script id="playerTemplate" type="text/template">
-    <div id="<%= name %>" class="player" style="background-color:<%= color %>;">
+    <div id="<%= name %>" class="player <%= color %>">
         <%= name %>
         <span class="score"><%= score %></span>
     </div>
