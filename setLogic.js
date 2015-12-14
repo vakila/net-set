@@ -29,74 +29,74 @@ function shuffle(deck) {
     return m.sortBy(function(c) { return Math.random() }, deck);
 }
 
+// Functional version with correct counting using base 3
 exports.makeDeck = function() {
-    // Functional version with correct counting using base 3
     var names = getAttributeNames();
     var deck = m.map(getCardFromNumber, m.range(81));
     var shuffled = shuffle(deck)
     return shuffle(deck);
 }
 
-exports.makeDeck1 = function() {
-    // More functional version
-    var names = getAttributeNames();
-    // console.log("names:", names);
+//// DEPRECATED - quasi-functional version
+// exports.makeDeck1 = function() {
+//     var names = getAttributeNames();
+//     // console.log("names:", names);
+//
+//     var indices = m.vector(0,0,0,0);
+//
+//     var deckSize = m.reduce(function(a, k) {
+//         // console.log("a:", a, "k:", k);
+//         // console.log("values:", m.count(m.get(ATTRIBUTES, k)));
+//         return a * m.count(m.get(ATTRIBUTES, k));
+//     }, 1, names);
+//     // console.log("deckSize:", deckSize);
+//
+//     var deck = m.vector();
+//
+//     for (var cardNumber = 0; cardNumber < deckSize; cardNumber++) {
+//         // console.log(cardNumber, indices);
+//         var newCard = exports.makeCard.apply(null, m.intoArray(indices))
+//         //console.log("newCard:", newCard);
+//         deck = m.conj(deck, newCard);
+//         // console.log("cards:", m.count(deck));
+//         var indicesIndex = cardNumber % m.count(indices);
+//         // console.log("indicesIndex:", indicesIndex);
+//         var valueAtCurrentIndex = m.get(indices, indicesIndex);
+//         // console.log("valueAtCurrentIndex:", valueAtCurrentIndex);
+//         var name = m.nth(names, indicesIndex);
+//         // console.log("name:", name);
+//         var cycleMax = m.count(m.get(ATTRIBUTES, name)) - 1;
+//         // console.log("cycleMax:", cycleMax);
+//         var newIndex = cycle(valueAtCurrentIndex, cycleMax);
+//         // console.log("newIndex",newIndex);
+//         indices = m.assoc(indices, indicesIndex, newIndex);
+//
+//     }
+//
+//     return deck;
+//
+// }
 
-    var indices = m.vector(0,0,0,0);
-
-    var deckSize = m.reduce(function(a, k) {
-        // console.log("a:", a, "k:", k);
-        // console.log("values:", m.count(m.get(ATTRIBUTES, k)));
-        return a * m.count(m.get(ATTRIBUTES, k));
-    }, 1, names);
-    // console.log("deckSize:", deckSize);
-
-    var deck = m.vector();
-
-    for (var cardNumber = 0; cardNumber < deckSize; cardNumber++) {
-        // console.log(cardNumber, indices);
-        var newCard = exports.makeCard.apply(null, m.intoArray(indices))
-        //console.log("newCard:", newCard);
-        deck = m.conj(deck, newCard);
-        // console.log("cards:", m.count(deck));
-        var indicesIndex = cardNumber % m.count(indices);
-        // console.log("indicesIndex:", indicesIndex);
-        var valueAtCurrentIndex = m.get(indices, indicesIndex);
-        // console.log("valueAtCurrentIndex:", valueAtCurrentIndex);
-        var name = m.nth(names, indicesIndex);
-        // console.log("name:", name);
-        var cycleMax = m.count(m.get(ATTRIBUTES, name)) - 1;
-        // console.log("cycleMax:", cycleMax);
-        var newIndex = cycle(valueAtCurrentIndex, cycleMax);
-        // console.log("newIndex",newIndex);
-        indices = m.assoc(indices, indicesIndex, newIndex);
-
-    }
-
-    return deck;
-
-}
-
-exports.makeDeck2 = function() {
-    // Not so functional version
-    var names = getAttributeNames();
-    var indices = mori.range(3);
-
-    var deck = mori.vector();
-
-    for (var c = 0; c<3; c++) {
-        for (var f = 0; f<3; f++) {
-            for (var n = 0; n<3; n++) {
-                for (var s =0; s<3; s++) {
-                    var card = makeCard(c,f,n,s);
-                    deck = mori.conj(deck, card);
-                }
-            }
-        }
-    }
-
-    return deck;
-}
+//// DEPRECATED - non-functional version
+// exports.makeDeck2 = function() {
+//     var names = getAttributeNames();
+//     var indices = mori.range(3);
+//
+//     var deck = mori.vector();
+//
+//     for (var c = 0; c<3; c++) {
+//         for (var f = 0; f<3; f++) {
+//             for (var n = 0; n<3; n++) {
+//                 for (var s =0; s<3; s++) {
+//                     var card = makeCard(c,f,n,s);
+//                     deck = mori.conj(deck, card);
+//                 }
+//             }
+//         }
+//     }
+//
+//     return deck;
+// }
 
 function getAttributeNames(){
     var names = m.keys(ATTRIBUTES);
