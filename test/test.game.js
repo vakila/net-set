@@ -7,14 +7,14 @@ describe('getInitialState', function(){
     it('should return a mori hashMap', function(){
         assert(m.isMap(game.getInitialState()));
     });
-    it('should include 12 dealt and 69 undealt cards', function(){
+    it('should have a deck with 81 cards and a toDeal with 81 shuffled integers', function(){
         var state = game.getInitialState();
-        var dealt = m.get(state, 'dealt');
-        var undealt = m.get(state, 'undealt')
-        assert.equal(m.count(dealt), 12);
-        assert(m.hasKey(m.nth(dealt,0), "color"));
-        assert.equal(m.count(undealt), 69);
-        assert(m.hasKey(m.nth(undealt,0), "color"));
+        var toDeal = m.get(state, 'toDeal');
+        var deck = m.get(state, 'deck')
+        assert.equal(m.count(toDeal), 81);
+        assert.equal(m.peek(toDeal)===0, false);
+        assert.equal(m.count(deck), 81);
+        assert(m.hasKey(m.nth(deck,0), "color"));
     });
     it('should have a players map', function(){
         var state = game.getInitialState();
@@ -57,7 +57,7 @@ describe('claimCard', function(){
         var claimed = m.getIn(claimedState, ['players', 'Anjana', 'claimed']);
         assert.equal(m.count(claimed), 1);
         assert(m.hasKey(m.first(claimed), 'color'));
-        assert(m.equals(m.first(claimed), m.nth(m.get(claimedState, 'dealt'), 3)));
+        assert(m.equals(m.first(claimed), m.nth(m.get(claimedState, 'deck'), 3)));
     });
 });
 

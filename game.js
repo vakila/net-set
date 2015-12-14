@@ -1,8 +1,8 @@
 var m = require('mori');
 var set = require('./setLogic.js');
 
-// map{'dealt': <card sequence>,
-//     'undealt': <card sequence>,
+// map{'deck': <card sequence ordered by ID>,
+//     'toDeal': #queue [of card IDs as ints in random order],
 //     'players': map{<name>: map{'score': <int>,
 //                                'claimed': <card sequence>}
 //                   }
@@ -10,17 +10,23 @@ var set = require('./setLogic.js');
 
 exports.getInitialState = function() {
     var deck = set.makeDeck();
-    var dealt = m.take(12, deck);
-    var undealt = m.drop(12, deck);
+    var toDeal = shuffleIDs(deck);
     var players = m.hashMap();
-    var gameState = m.hashMap('dealt', dealt, 'undealt', undealt, 'players', players);
+    var gameState = m.hashMap('deck', deck, 'toDeal', toDeal, 'players', players);
     return gameState;
 }
 
-function deal(n, gameState) {
-    //TODO
-    return gameState;
+function shuffleIDs(deck) {
+    var idSeq = m.sortBy(function(c) { return Math.random() }, m.range(m.count(deck)));
+    var idQueue = m.into(m.queue(), idSeq);
+    // console.log("idQueue:", idQueue);
+    return idQueue;
 }
+
+// function deal(n, gameState) {
+//     //TODO
+//     return gameState;
+// }
 
 exports.addPlayer = function(name, oldState) {
     return m.assocIn(oldState, ['players', name], m.hashMap('score', 0, 'claimed', m.set()));
@@ -32,7 +38,7 @@ exports.removePlayer = function(name, oldState) {
 }
 
 exports.claimCard = function(player, cardID, oldState) {
-    var card = m.nth(m.get(oldState, 'dealt'), Number(cardID));
+    var card = m.nth(m.get(oldState, 'deck'), Number(cardID));
     var oldClaimed = m.getIn(oldState, ['players', player, 'claimed']);
     var newClaimed = m.conj(oldClaimed, card);
     return m.assocIn(oldState, ['players', player, 'claimed'], newClaimed);

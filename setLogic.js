@@ -33,8 +33,8 @@ function shuffle(deck) {
 exports.makeDeck = function() {
     var names = getAttributeNames();
     var deck = m.map(getCardFromNumber, m.range(81));
-    var shuffled = shuffle(deck)
-    return shuffle(deck);
+    // return shuffle(deck);
+    return deck;
 }
 
 //// DEPRECATED - quasi-functional version

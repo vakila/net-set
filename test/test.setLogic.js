@@ -18,10 +18,15 @@ describe('makeDeck', function(){
         assert.equal(mori.count(mori.distinct(setLogic.makeDeck())),81);
     });
 
-    it('should contain cards in random order', function(){
-        var shuffled = setLogic.makeDeck();
-        // Can't think of a way to test this other than visual inspection
-        mori.each(shuffled, function(c){ console.log("shuffled: ", c); });
+    // it('should contain cards in random order', function(){
+    //     var shuffled = setLogic.makeDeck();
+    //     // Can't think of a way to test this other than visual inspection
+    //     mori.each(shuffled, function(c){ console.log("shuffled: ", c); });
+    // });
+
+    it('should contain cards in order by ID', function(){
+        var deck = setLogic.makeDeck;
+        mori.map(function(n) { assert.equal(n, mori.nth(deck, n))}, mori.range(81));
     });
 
 })
