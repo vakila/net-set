@@ -14,6 +14,8 @@ app.set('view engine', 'jade');
 
 // app.use(express.static('public'));
 app.use('/public', express.static('public'));
+app.use('/public/mori.js', express.static(__dirname + '/node_modules/mori/mori.js'));
+
 
 var gameState = game.getInitialState();
 
