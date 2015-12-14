@@ -22,7 +22,7 @@ function convertNumberToBase3(n) {
 }
 
 function getCardFromNumber(n) {
-    return exports.makeCard.apply(null, m.intoArray(convertNumberToBase3(n)));
+    return exports.makeCard(n, convertNumberToBase3(n));
 }
 
 function shuffle(deck) {
@@ -103,9 +103,12 @@ function getAttributeNames(){
     return m.sort(names);
 }
 
-exports.makeCard = function(colorIndex, fillIndex, numberIndex, shapeIndex) {
-    // number, shape, fill, and color are integers representing the attribute indices
-    // e.g. makeCard(1, 1, 1, 1);
+exports.makeCard = function(cardID, attrIndices) {
+    // attrIndices is a vector of 4 elements: colorIndex, fillIndex, numberIndex, shapeIndex
+    // these are integers representing the attribute indices
+    // the cardID is a unique identfier for this combination of attributes,
+    // i.e. the number of this card in the deck
+    // e.g. makeCard(21, m.vector(1, 1, 1, 1));
 
     function getAttrValue(name, index) {
         var attrVec = m.get(ATTRIBUTES, name);
@@ -113,11 +116,10 @@ exports.makeCard = function(colorIndex, fillIndex, numberIndex, shapeIndex) {
     }
 
     var attrNames = getAttributeNames();
-    var attrIndices = m.vector(colorIndex, fillIndex, numberIndex, shapeIndex);
 
     var values = m.map(getAttrValue, attrNames, attrIndices);
 
-    var card = m.zipmap(attrNames, values);
+    var card = m.assoc(m.zipmap(attrNames, values), 'id', cardID);
 
     return card;
 }
