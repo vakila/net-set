@@ -329,6 +329,7 @@
 <!-- CLIENT SCRIPT -->
 <script src="public/client.js" type="text/javascript"></script>
 
+<!-- TEMPLATES -->
 <script id="cardContentTemplate" type="text/template">
     <div id="<%= cardID %>" class="card-content">
         <div class="markers"></div>
@@ -341,6 +342,14 @@
         <%= shapes[card.shape] %>
     </svg>
 </script>
+
+<script id="playerTemplate" type="text/template">
+    <div id="<%= name %>" class="player" style="background-color:<%= color %>;">
+        <%= name %>
+        <span class="score"><%= score %></span>
+    </div>
+</script>
+
 
 </body>
 
