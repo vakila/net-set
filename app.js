@@ -35,8 +35,10 @@ io.on('connection', function(socket){
   socket.on('log on', function(name){
     console.log('LOG ON', name);
     gameState = game.addPlayer(name, gameState);
-    console.log('gameState.players:', m.get(gameState, 'players'));
-    socket.broadcast.emit('log on', name);
+    var players = m.get(gameState, 'players')
+    console.log('gameState.players:', players);
+    // socket.broadcast.emit('log on', name);
+    io.emit('log on', name);
   })
   socket.on('log off', function(name) {
     console.log('LOG OFF', name);

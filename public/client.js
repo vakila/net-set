@@ -12,11 +12,32 @@ $(window).on('beforeunload', function() {
   socket.emit('log off', username);
 });
 
+// socket.on('load game state', function(gameState) {
+//   loadPlayers(mori.get(gameState, 'players'));
+//   // loadCards()
+// });
+//
+// function loadPlayers(playersMap) {
+//   mori.each()
+// }
+
+function getPlayerDiv(playerName, playerScore, playerColor) {
+  var playerTemplate = $('#playerTemplate').text();
+  return $(tmpl(playerTemplate,  {name: playerName, score: playerScore, color: playerColor}));
+}
+
+function addPlayer(filledTemplate) {
+  $( "#players" ).append( filledTemplate );
+}
+
+//TODO function removePlayer(name) {}
+
 function userActivity(name, joinedOrLeft) {
   console.log(name + " " + joinedOrLeft + " the game");
 }
 socket.on('log on', function(name) {
   userActivity(name, "joined");
+  addPlayer(getPlayerDiv(name, 0, "blue"));
 });
 socket.on('log off', function(name) {
   userActivity(name, "left");
