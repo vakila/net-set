@@ -2,7 +2,10 @@
 
 var socket = io();
 
+// GLOBALS
 var username, userColor;
+
+// EMIT LOG ON/OFF EVENTS
 $(window).load(function() {
     username = prompt("Please enter your name");
     userColor = Number(prompt("Please choose a color (number 1-6)"));
@@ -13,38 +16,7 @@ $(window).on('beforeunload', function() {
   socket.emit('log off', username);
 });
 
-// socket.on('load game state', function(gameState) {
-//   loadPlayers(mori.get(gameState, 'players'));
-//   // loadCards()
-// });
-//
-// function loadPlayers(playersMap) {
-//   mori.each()
-// }
-
-function getPlayerDiv(playerName, playerScore, playerColor) {
-  var playerTemplate = $('#playerTemplate').text();
-  return $(tmpl(playerTemplate,  {name: playerName, score: playerScore, color: playerColor}));
-}
-
-function addPlayer(filledTemplate) {
-  $( "#players" ).append( filledTemplate );
-}
-
-function getNextPlayerColor() {
-  var playerDivs = $( "#players" ).children()
-  if (playerDivs.length > 0) {
-      var lastColor = playerDivs.last().attr("class").toString().match(/pcol-(\d)/)[1];
-      console.log("lastColor:", lastColor);
-      if (lastColor < 6) {
-          return ++lastColor;
-      }
-  }
-  return 1;
-}
-
-//TODO function removePlayer(name) {}
-
+// RECEIVE LOG ON/OFF EVENTS
 function userActivity(name, joinedOrLeft) {
   console.log(name + " " + joinedOrLeft + " the game");
 }
@@ -55,6 +27,45 @@ socket.on('log on', function(name, color) {
 socket.on('log off', function(name) {
   userActivity(name, "left");
 });
+
+// RECEIVE LOAD GAME EVENT
+// socket.on('load game', function(gameState) {
+//   loadPlayers(mori.get(gameState, 'players'));
+//   // loadCards()
+// });
+//
+// function loadPlayers(playersMap) {
+//   mori.each()
+// }
+
+// ADD/REMOVE PLAYERS
+function getPlayerDiv(playerName, playerScore, playerColor) {
+  var playerTemplate = $('#playerTemplate').text();
+  return $(tmpl(playerTemplate,  {name: playerName, score: playerScore, color: playerColor}));
+}
+
+function addPlayer(filledTemplate) {
+  $( "#players" ).append( filledTemplate );
+}
+
+//TODO function removePlayer(name) {}
+
+
+// deprecated
+// function getNextPlayerColor() {
+//   var playerDivs = $( "#players" ).children()
+//   if (playerDivs.length > 0) {
+//       var lastColor = playerDivs.last().attr("class").toString().match(/pcol-(\d)/)[1];
+//       console.log("lastColor:", lastColor);
+//       if (lastColor < 6) {
+//           return ++lastColor;
+//       }
+//   }
+//   return 1;
+// }
+
+
+// HANDLE CARD CLICKING
 
 function getCardID(targetNode) {
   if (targetNode.className === 'card-content') {
