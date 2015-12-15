@@ -31,17 +31,15 @@ function addPlayer(filledTemplate) {
 }
 
 function getNextPlayerColor() {
-  var lastClasses = $( "#players" ).children().last().attr("class").toString();
-  console.log("lastClasses:", lastClasses);
-  var lastColor = lastClasses.match(/pcol-(\d)/)[1];
-  console.log("lastColor:", lastColor);
-  if (lastColor == 6) {
-      return 0;
-  } else {
-      return ++lastColor;
+  var playerDivs = $( "#players" ).children()
+  if (playerDivs.length > 0) {
+      var lastColor = playerDivs.last().attr("class").toString().match(/pcol-(\d)/)[1];
+      console.log("lastColor:", lastColor);
+      if (lastColor < 6) {
+          return ++lastColor;
+      }
   }
-
-
+  return 1;
 }
 
 //TODO function removePlayer(name) {}
