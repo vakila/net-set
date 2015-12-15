@@ -2,10 +2,11 @@
 
 var socket = io();
 
-var username;
+var username, userColor;
 $(window).load(function() {
     username = prompt("Please enter your name");
-    socket.emit('log on', username);
+    userColor = Number(prompt("Please choose a color (number 1-6)"));
+    socket.emit('log on', username, userColor);
 });
 
 $(window).on('beforeunload', function() {
@@ -47,9 +48,9 @@ function getNextPlayerColor() {
 function userActivity(name, joinedOrLeft) {
   console.log(name + " " + joinedOrLeft + " the game");
 }
-socket.on('log on', function(name) {
+socket.on('log on', function(name, color) {
   userActivity(name, "joined");
-  addPlayer(getPlayerDiv(name, 0, getNextPlayerColor()));
+  addPlayer(getPlayerDiv(name, 0, color));
 });
 socket.on('log off', function(name) {
   userActivity(name, "left");

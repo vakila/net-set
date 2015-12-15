@@ -32,13 +32,13 @@ io.on('connection', function(socket){
   // socket.emit('load gameState', { gameState: gameState });
 
   // LOG ON/OFF
-  socket.on('log on', function(name){
+  socket.on('log on', function(name, color){
     console.log('LOG ON', name);
-    gameState = game.addPlayer(name, gameState);
+    gameState = game.addPlayer(name, color, gameState);
     var players = m.get(gameState, 'players')
     console.log('gameState.players:', players);
     // socket.broadcast.emit('log on', name);
-    io.emit('log on', name);
+    io.emit('log on', name, color);
   })
   socket.on('log off', function(name) {
     console.log('LOG OFF', name);

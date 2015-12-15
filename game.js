@@ -3,7 +3,8 @@ var set = require('./setLogic.js');
 
 // map{'deck': <card sequence ordered by ID>,
 //     'toDeal': <sequence of card IDs as ints in random order>,
-//     'players': map{<name>: map{'score': <int>,
+//     'players': map{<name>: map{'color': <int>,
+//                                'score': <int>,
 //                                'claimed': <card sequence>}
 //                   }
 // }
@@ -29,8 +30,8 @@ function removeDealt(n, oldState) {
     return newState;
 }
 
-exports.addPlayer = function(name, oldState) {
-    return m.assocIn(oldState, ['players', name], m.hashMap('score', 0, 'claimed', m.set()));
+exports.addPlayer = function(name, color, oldState) {
+    return m.assocIn(oldState, ['players', name], m.hashMap('color', color, 'score', 0, 'claimed', m.set()));
 }
 
 exports.removePlayer = function(name, oldState) {
