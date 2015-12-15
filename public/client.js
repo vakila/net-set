@@ -6,11 +6,11 @@ var socket = io();
 var username, userColor;
 
 // EMIT LOG ON/OFF EVENTS
-$(window).load(function() {
-    username = prompt("Please enter your name");
-    userColor = Number(prompt("Please choose a color (number 1-6)"));
-    socket.emit('log on', username, userColor);
-});
+// $(window).load(function() {
+//     username = prompt("Please enter your name");
+//     userColor = Number(prompt("Please choose a color (number 1-6)"));
+//     socket.emit('log on', username, userColor);
+// });
 
 $(window).on('beforeunload', function() {
   socket.emit('log off', username);
@@ -22,26 +22,38 @@ function userActivity(name, joinedOrLeft) {
 }
 socket.on('log on', function(name, color) {
   userActivity(name, "joined");
-  addPlayer(getPlayerDiv(name, 0, color));
+  addPlayer(fillPlayerTemplate(name, 0, color));
 });
 socket.on('log off', function(name) {
   userActivity(name, "left");
 });
 
 // RECEIVE LOAD GAME EVENT
-// socket.on('load game', function(gameState) {
-//   loadPlayers(mori.get(gameState, 'players'));
-//   // loadCards()
-// });
-//
-// function loadPlayers(playersMap) {
-//   mori.each()
-// }
+socket.on('load game', function(state) {
+  console.log("Received LOAD GAME");
+  console.log(state);
+  loadPlayers(mori.get(mori.toClj(state), 'players'));
+  // loadCards()
+  username = prompt("Please enter your name");
+  userColor = Number(prompt("Please choose a color (number 1-6)"));
+  socket.emit('log on', username, userColor);
+});
+
+function loadPlayers(playersMap) {
+  console.log("loadPlayers");
+  mori.each(mori.intoArray(mori.keys(playersMap)), function(name) {
+      console.log("in mori.map");
+      var score = mori.getIn(playersMap, [name, 'score']);
+      var color = mori.getIn(playersMap, [name, 'color']);
+      console.log("Adding player:", name, score, color);
+      addPlayer(fillPlayerTemplate(name, score, color));
+  });
+}
 
 // ADD/REMOVE PLAYERS
-function getPlayerDiv(playerName, playerScore, playerColor) {
-  var playerTemplate = $('#playerTemplate').text();
-  return $(tmpl(playerTemplate,  {name: playerName, score: playerScore, color: playerColor}));
+function fillPlayerTemplate(playerName, playerScore, playerColor) {
+   var playerTemplate = $('#playerTemplate').text();
+   return $(tmpl(playerTemplate,  {name: playerName, score: playerScore, color: playerColor}));
 }
 
 function addPlayer(filledTemplate) {

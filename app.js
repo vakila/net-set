@@ -29,7 +29,8 @@ app.get('/', function(req, res) {
 io.on('connection', function(socket){
   // CONNECT
   console.log('CONNECT', socket.id);
-  // socket.emit('load gameState', { gameState: gameState });
+  // console.log('LOAD GAME', "(socket", socket.id, ")")
+  socket.emit('load game', m.toJs(gameState));
 
   // LOG ON/OFF
   socket.on('log on', function(name, color){
