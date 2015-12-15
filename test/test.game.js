@@ -26,12 +26,12 @@ describe('getInitialState', function(){
 describe('addPlayer', function(){
     it('should add the name to the players hashMap', function(){
         var state0 = game.getInitialState();
-        var state1 = game.addPlayer('Anjana', state0);
+        var state1 = game.addPlayer('Anjana', 1, state0);
         assert(m.hasKey(m.get(state1, 'players'), 'Anjana'));
     });
     it('should associate the name in players with a proper hashMap', function(){
         var state0 = game.getInitialState();
-        var state1 = game.addPlayer('Anjana', state0);
+        var state1 = game.addPlayer('Anjana', 1, state0);
         var playerMap = m.getIn(state1, ['players', 'Anjana']);
         assert(m.isMap(playerMap));
         assert(m.hasKey(playerMap, 'score'));
@@ -44,7 +44,7 @@ describe('addPlayer', function(){
 describe('removePlayer', function(){
     it('should remove the name from the players hashMap', function(){
         var state0 = game.getInitialState();
-        var added = game.addPlayer('Anjana', state0);
+        var added = game.addPlayer('Anjana', 1, state0);
         var removed = game.removePlayer('Anjana', added);
         assert.equal(m.hasKey(m.get(removed, 'players')), false);
     });
@@ -52,7 +52,7 @@ describe('removePlayer', function(){
 
 describe('claimCard', function(){
     it('should add the card object to the players.player.claimed set', function(){
-        var state = game.addPlayer('Anjana', game.getInitialState());
+        var state = game.addPlayer('Anjana', 1, game.getInitialState());
         var claimedState = game.claimCard('Anjana', 3, state);
         var claimed = m.getIn(claimedState, ['players', 'Anjana', 'claimed']);
         assert.equal(m.count(claimed), 1);
@@ -64,7 +64,7 @@ describe('claimCard', function(){
 describe('checkForCandidate', function() {
     var state;
     beforeEach(function() {
-        state = game.addPlayer('Leia', game.addPlayer('Luke', game.getInitialState()));
+        state = game.addPlayer('Leia', 2, game.addPlayer('Luke', 3, game.getInitialState()));
     });
 
     it('should return true if player has 3 claimed cards', function() {
@@ -82,11 +82,11 @@ describe('checkForCandidate', function() {
 
 describe('checkForSet', function() {
     // it('should return null if player has less than 3 claimed cards', function(){
-    //     var state = game.addPlayer('Anjana', game.getInitialState());
+    //     var state = game.addPlayer('Anjana', 5, game.getInitialState());
     //     assert.equal(game.checkForSet('Anjana', state), null);
     // });
     it('should return boolean if player has 3 cards', function(){
-        var state = game.addPlayer('Anjana', game.getInitialState());
+        var state = game.addPlayer('Anjana', 5, game.getInitialState());
         var claimedState = game.claimCard('Anjana', 1, game.claimCard('Anjana', 2, game.claimCard('Anjana', 3, state)));
         assert.equal(typeof(game.checkForSet('Anjana', claimedState)), 'boolean');
     });
