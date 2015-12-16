@@ -77,21 +77,11 @@ exports.discardSet = function(oldState, setCards) {
 
 
 exports.startBoard = function(oldState) {
-    return m.pipeline(
-        oldState,
-        m.curry(deal, 'A'),
-        m.curry(deal, 'B'),
-        m.curry(deal, 'C'),
-        m.curry(deal, 'D'),
-        m.curry(deal, 'E'),
-        m.curry(deal, 'F'),
-        m.curry(deal, 'G'),
-        m.curry(deal, 'H'),
-        m.curry(deal, 'I'),
-        m.curry(deal, 'J'),
-        m.curry(deal, 'K'),
-        m.curry(deal, 'L')
-    );
+    var slots = m.vector('A', 'B', 'C', 'D', 'E', 'F',
+        'G', 'H', 'I', 'J', 'K', 'L');
+    return m.reduce(function(state, slot) {
+        return deal(state, slot);
+    }, oldState, slots);
 }
 
 // function removeDealt(n, oldState) {
