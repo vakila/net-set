@@ -126,7 +126,7 @@ exports.removePlayer = function(name, oldState) {
     return m.assoc(oldState, 'players', newPlayers);
 }
 
-exports.updateScore = function(player, scoreChange, oldState) {
+exports.updateScore = function(oldState, player, scoreChange) {
     return m.updateIn(oldState, ['players', player, 'score'], function(oldScore){
         return oldScore + scoreChange;
     });
