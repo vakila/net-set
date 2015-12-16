@@ -28,16 +28,16 @@ exports.getInitialState = function() {
 
 //// BOARD ////
 
+var SLOTS = m.vector('A', 'B', 'C', 'D', 'E', 'F',
+    'G', 'H', 'I', 'J', 'K', 'L',
+    'M', 'N', 'O', 'P', 'Q', 'R');
+
 function getEmptyBoard() {
-    var slots = m.vector('A', 'B', 'C', 'D', 'E', 'F',
-        'G', 'H', 'I', 'J', 'K', 'L',
-        'M', 'N', 'O', 'P', 'Q', 'R');
-    return m.zipmap(slots, m.map(m.constantly(null), m.range(18)));
+    return m.zipmap(SLOTS, m.map(m.constantly(null), m.range(18)));
 }
 
 exports.startBoard = function(oldState) {
-    var slots = m.vector('A', 'B', 'C', 'D', 'E', 'F',
-        'G', 'H', 'I', 'J', 'K', 'L');
+    var slots = m.take(12, SLOTS);
     return m.reduce(function(state, slot) {
         return deal(state, slot);
     }, oldState, slots);
