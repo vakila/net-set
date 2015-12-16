@@ -30,7 +30,8 @@ io.on('connection', function(socket){
   // CONNECT
   console.log('CONNECT', socket.id);
   // console.log('LOAD GAME', "(socket", socket.id, ")")
-  socket.emit('load game', m.toJs(gameState));
+  // socket.emit('load game', gameState); //doesn't work
+  socket.emit('load game', m.toJs(gameState)); //works
 
   // LOG ON/OFF
   socket.on('log on', function(name, color){

@@ -32,8 +32,9 @@ socket.on('log off', function(name) {
 socket.on('load game', function(state) {
   console.log("Received LOAD GAME");
   console.log(state);
-  loadPlayers(mori.get(mori.toClj(state), 'players'));
-  // loadCards()
+  loadPlayers(mori.get(mori.toClj(state), 'players')); //works (if server sends JS)
+  // loadPlayers(mori.get(state, 'players')); //doesn't work (if server sends JS)
+
   username = prompt("Please enter your name");
   userColor = Number(prompt("Please choose a color (number 1-6)"));
   socket.emit('log on', username, userColor);
