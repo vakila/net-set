@@ -40,13 +40,14 @@ socket.on('load game', function(state) {
   socket.emit('log on', username, userColor);
 });
 
-$("button[name='start-game']").click(function() {
+$("button[name='start']").click(function() {
   socket.emit('start game');
 });
 
 socket.on('start game', function(state) {
   console.log("Received START GAME");
   // updateBoard(mori.get(mori.toClj(state), 'board'));
+  $( "button[name='start']" ).addClass("hidden");
   updateBoard(state);
 });
 
