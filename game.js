@@ -59,6 +59,32 @@ function deal(oldState, slotID) {
     );
 }
 
+
+
+function discard(oldState, card) {
+    var cardID = m.get(card, 'id');
+    console.log("discarding card", cardID);
+
+    var slotCardPair = m.filter(function(slotCard) {
+        return m.nth(slotCard, 1) === cardID;
+    }, m.get(oldState, 'board'));
+    var slotID = m.nth(slotCardPair, 0);
+    console.log("card was in slot", slotID);
+
+
+    return m.assocIn(oldState, ['board', slotID], null);
+}
+
+function discardSet(oldState, setCards) {
+    return m.reduce(function(state, card) {
+        console.log("REDUCING:")
+        console.log("card", card);
+        console.log("board", m.get(state,board));
+        return discard(state, card);
+    }, oldState, setCards);
+}
+
+
 exports.startBoard = function(oldState) {
     return m.pipeline(
         oldState,
