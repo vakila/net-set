@@ -105,9 +105,9 @@ function updateCardContent(oldID, newID, newCard) {
     $('#'+oldID).replaceWith(getCardContent(newID, newCard));
 }
 
-function getCardContent(newID, newCard) {
+function getCardContent(newCard) {
     var template = $('#cardContentTemplate').text();
-    return $(tmpl(template,  {cardID: newID, card: newCard, svgShapes: getSVGs(card)}));
+    return $(tmpl(template,  {card: newCard, svgShapes: getSVGs(card)}));
 
 }
 
