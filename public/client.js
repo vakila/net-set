@@ -40,6 +40,27 @@ socket.on('load game', function(state) {
   socket.emit('log on', username, userColor);
 });
 
+$("button[name='start-game']").click(function() {
+  socket.emit('start game');
+});
+
+socket.on('start game', function(state) {
+  console.log("Received START GAME");
+  // updateBoard(mori.get(mori.toClj(state), 'board'));
+  updateBoard(state);
+});
+
+function updateBoard(gameState) {
+  console.log("updateBoard");
+  var boardMap = gameState.board;
+  var deck = gameState.deck;
+  console.log("boardMap:", boardMap);
+  for (var slot in boardMap) {
+    console.log("slot:", slot);
+    fillCardSlot(slot, deck[boardMap[slot]]);
+  }
+}
+
 function loadPlayers(playersMap) {
   console.log("loadPlayers");
   mori.each(mori.intoArray(mori.keys(playersMap)), function(name) {
