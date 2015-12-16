@@ -83,6 +83,10 @@ function addPlayer(filledTemplate) {
   $( "#players" ).append( filledTemplate );
 }
 
+function updateScore(playerName, newScore) {
+  $("#"+playerName).find(".score").text(newScore);
+}
+
 //TODO function removePlayer(name) {}
 
 
@@ -161,3 +165,15 @@ function getSVGs(card) {
     }
     return svgs;
 }
+
+// HANDLE SET EVENTS
+
+socket.on('set found', function(data) {
+  console.log("SET FOUND:", data.user, data.set);
+  updateScore(data.user, data.gameState.players[data.user].score);
+});
+
+socket.on('set failed', function(data) {
+  console.log("SET FAILED:", data.user, data.set);
+  updateScore(data.user, data.gameState.players[data.user].score);
+});

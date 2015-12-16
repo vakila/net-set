@@ -62,22 +62,26 @@ io.on('connection', function(socket){
   socket.on('card click', function(click){
     console.log('CARD CLICK', click.user, click.card);
     gameState = game.claimCard(click.user, click.card, gameState);
-    console.log('gameState.players.' + click.user + '.claimed:', m.getIn(gameState, ['players', click.user, 'claimed']));
+    var claimed = m.getIn(gameState, ['players', click.user, 'claimed']);
+    console.log('gameState.players.' + click.user + '.claimed:', claimed);
     io.emit('card click', click);
     // can I turn this into a function that takes 2 callbacks?
     //game.processClick(click, function() {socket.emit("success");}, function() {socket.emit("failure");})
     var hasCandidate = game.checkForCandidate(click.user, gameState);
     if (hasCandidate) {
         var hasSet = game.checkForSet(click.user, gameState);
+        var setData = {'user':click.user, 'set':m.toJs(claimed), 'gameState':m.toJs(gameState)};
         if (hasSet) {
-          console.log("HAS SET", click.user, m.getIn(gameState, ['players', click.user, 'claimed']));
+          console.log("SET FOUND", click.user, claimed);
           // increment score etc.
           // emit set success event
+          io.emit('set found', setData);
         }
         else {
-          console.log("NOT SET", click.user, m.getIn(gameState, ['players', click.user, 'claimed']));
+          console.log("SET FAILED", click.user, claimed);
           // decrement score etc.
           // emit set failure event
+          io.emit('set failed', setData);
         }
     }
 
