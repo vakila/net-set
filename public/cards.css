@@ -1,3 +1,7 @@
+.hidden {
+  display: none;
+}
+
 #board {
   background-color: white;
   /*padding: 5vh;*/
