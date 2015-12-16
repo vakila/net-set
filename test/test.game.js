@@ -98,3 +98,33 @@ describe('checkForSet', function() {
         assert.equal(typeof(game.checkForSet('Anjana', claimedState)), 'boolean');
     });
 });
+
+describe('startBoard', function() {
+    var state;
+    beforeEach(function() {
+        state = game.startBoard(game.getInitialState());
+    })
+    it('should assoc the first 12 board slots with a cardID', function(){
+        var fullSlots = m.vector('A', 'B', 'C', 'D', 'E', 'F',
+            'G', 'H', 'I', 'J', 'K', 'L');
+        var emptySlots = m.vector('M', 'N', 'O', 'P', 'Q', 'R');
+
+        m.each(fullSlots, function(slot) {
+            var newValue = m.getIn(state, ['board', slot]);
+            // console.log(slot, newValue);
+            assert(newValue !== null);
+            assert(newValue >= 0 && newValue < 81);
+        });
+
+        m.each(emptySlots, function(slot) {
+            var newValue = m.getIn(state, ['board', slot]);
+            // console.log(slot, newValue);
+            assert(newValue === null);
+        })
+
+    });
+    it('should result in toDeal having 69 cards left', function(){
+        var toDeal = m.get(state, 'toDeal');
+        assert.equal(m.count(toDeal), 69);
+    });
+})
