@@ -112,7 +112,7 @@ exports.checkForSet = function(player, state) {
 // //TODO
 // exports.processClick = function(click, hasSetCallback, noSetCallback) {}
 
-function updateScore(player, scoreChange, oldState) {
+exports.updateScore = function(player, scoreChange, oldState) {
     return m.updateIn(oldState, ['players', player, 'score'], function(oldScore){
         return oldScore + scoreChange;
     });

@@ -70,19 +70,22 @@ io.on('connection', function(socket){
     var hasCandidate = game.checkForCandidate(click.user, gameState);
     if (hasCandidate) {
         var hasSet = game.checkForSet(click.user, gameState);
-        var setData = {'user':click.user, 'set':m.toJs(claimed), 'gameState':m.toJs(gameState)};
+        var setData = {'user':click.user, 'set':m.toJs(claimed)};
+        var scoreDiff, setEvent;
         if (hasSet) {
           console.log("SET FOUND", click.user, claimed);
-          // increment score etc.
-          // emit set success event
-          io.emit('set found', setData);
+          scoreDiff = 1;
+          //TODO remove cards and deal new ones
+          setEvent = 'set found';
         }
         else {
           console.log("SET FAILED", click.user, claimed);
-          // decrement score etc.
-          // emit set failure event
-          io.emit('set failed', setData);
+          scoreDiff = -1;
+          setEvent = 'set failed';
         }
+        console.log(setEvent.toUpperCase(), setData.user, setData.set);
+        setData.gameState = m.toJs(game.updateScore(click.user, scoreDiff, gameState));
+        io.emit(setEvent, setData);
     }
 
   });
