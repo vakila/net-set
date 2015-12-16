@@ -1,6 +1,9 @@
 var m = require('mori');
 var set = require('./setLogic.js');
 
+//// GAME STATE ////
+
+// Structure of game state object:
 // map{'deck': <card sequence ordered by ID>,
 //     'toDeal': #queue <of card IDs as ints in random order>,
 //     'board': map{ <slot id>: <card id> },
@@ -22,19 +25,32 @@ exports.getInitialState = function() {
     return gameState;
 }
 
-function shuffleIDs(deck) {
-    var idSeq = m.sortBy(function(c) { return Math.random() }, m.range(m.count(deck)));
-    var idQueue = m.into(m.queue(), idSeq);
-    // console.log("idQueue:", idQueue);
-    return idQueue;
-}
 
-// BOARD
+//// BOARD ////
+
 function getEmptyBoard() {
     var slots = m.vector('A', 'B', 'C', 'D', 'E', 'F',
         'G', 'H', 'I', 'J', 'K', 'L',
         'M', 'N', 'O', 'P', 'Q', 'R');
     return m.zipmap(slots, m.map(m.constantly(null), m.range(18)));
+}
+
+exports.startBoard = function(oldState) {
+    var slots = m.vector('A', 'B', 'C', 'D', 'E', 'F',
+        'G', 'H', 'I', 'J', 'K', 'L');
+    return m.reduce(function(state, slot) {
+        return deal(state, slot);
+    }, oldState, slots);
+}
+
+
+//// CARD DEALING/DISCARDING ////
+
+function shuffleIDs(deck) {
+    var idSeq = m.sortBy(function(c) { return Math.random() }, m.range(m.count(deck)));
+    var idQueue = m.into(m.queue(), idSeq);
+    // console.log("idQueue:", idQueue);
+    return idQueue;
 }
 
 function deal(oldState, slotID) {
@@ -49,8 +65,6 @@ function deal(oldState, slotID) {
         m.curry(m.assoc, 'toDeal', newToDeal)
     );
 }
-
-
 
 function discard(oldState, card) {
     var cardID = m.get(card, 'id');
@@ -76,24 +90,7 @@ exports.discardSet = function(oldState, setCards) {
 }
 
 
-exports.startBoard = function(oldState) {
-    var slots = m.vector('A', 'B', 'C', 'D', 'E', 'F',
-        'G', 'H', 'I', 'J', 'K', 'L');
-    return m.reduce(function(state, slot) {
-        return deal(state, slot);
-    }, oldState, slots);
-}
-
-
-
-exports.addPlayer = function(name, color, oldState) {
-    return m.assocIn(oldState, ['players', name], m.hashMap('color', color, 'score', 0, 'claimed', m.set()));
-}
-
-exports.removePlayer = function(name, oldState) {
-    var newPlayers = m.dissoc(m.get(oldState, 'players'), name)
-    return m.assoc(oldState, 'players', newPlayers);
-}
+//// CARD AND SET CLAIMING ////
 
 exports.claimCard = function(player, cardID, oldState) {
     var card = m.nth(m.get(oldState, 'deck'), Number(cardID));
@@ -116,6 +113,18 @@ exports.checkForSet = function(player, state) {
 
 // //TODO
 // exports.processClick = function(click, hasSetCallback, noSetCallback) {}
+
+
+//// PLAYERS AND SCORES ////
+
+exports.addPlayer = function(name, color, oldState) {
+    return m.assocIn(oldState, ['players', name], m.hashMap('color', color, 'score', 0, 'claimed', m.set()));
+}
+
+exports.removePlayer = function(name, oldState) {
+    var newPlayers = m.dissoc(m.get(oldState, 'players'), name)
+    return m.assoc(oldState, 'players', newPlayers);
+}
 
 exports.updateScore = function(player, scoreChange, oldState) {
     return m.updateIn(oldState, ['players', player, 'score'], function(oldScore){
