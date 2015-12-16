@@ -148,7 +148,7 @@ describe('discardSet', function() {
             m.curry(m.assoc, 'K', 11),
             m.curry(m.assoc, 'L', 12)
         );
-        console.log(newBoard)
+        // console.log(newBoard)
         var state = m.assocIn(state0, ['board'], newBoard);
         var deck = m.get(state, 'deck');
         discardState = game.discardSet(state, m.set(m.map(function(id) {
@@ -156,14 +156,14 @@ describe('discardSet', function() {
         }, m.vector(1, 2, 3))));
     });
     it('should remove the cardIDs from the appropriate slots', function(){
-        console.log('board:', m.get(discardState, 'board'));
+        // console.log('board:', m.get(discardState, 'board'));
         m.each(m.vector('A', 'B', 'C'), function(slot) {
-            console.log("testing slot", slot);
+            // console.log("testing slot", slot);
             assert.equal(m.getIn(discardState, ['board', slot]), null);
         });
     });
     it('should not change the other slots', function(){
-        console.log('board:', m.get(discardState, 'board'));
+        // console.log('board:', m.get(discardState, 'board'));
         var safeSlots = m.vector('D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L')
         m.each(m.vector(0,1,2,3,4,5,6,7,8),
             function(index) {
