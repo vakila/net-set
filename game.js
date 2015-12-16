@@ -47,14 +47,16 @@ function shuffleIDs(deck) {
 }
 
 function deal(oldState, slotID) {
-    var deck = m.get(oldState, 'deck');
     var oldBoard = m.get(oldState, 'board');
     var oldToDeal = m.get(oldState, 'toDeal');
 
     var newBoard = m.assoc(oldBoard, slotID, m.peek(oldToDeal));
     var newToDeal = m.pop(oldToDeal);
 
-    return m.assoc(m.assoc(oldState, 'board', newBoard), 'toDeal', newToDeal);
+    return m.pipeline(oldState,
+        m.curry(m.assoc, 'board', newBoard),
+        m.curry(m.assoc, 'toDeal', newToDeal)
+    );
 }
 
 exports.startBoard = function(oldState) {
