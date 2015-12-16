@@ -75,7 +75,13 @@ io.on('connection', function(socket){
         if (hasSet) {
           console.log("SET FOUND", click.user, claimed);
           scoreDiff = 1;
-          //TODO remove cards and deal new ones
+          // discard cards
+          console.log("Attempting discard...")
+          console.log("Board before discard:", m.get(gameState, 'board'));
+          gameState = game.discardSet(gameState, claimed);
+          console.log("Board after discard:", m.get(gameState, 'board'));
+          //TODO downsize board if needed
+          //TODO deal new cards
           setEvent = 'set found';
         }
         else {
@@ -84,7 +90,11 @@ io.on('connection', function(socket){
           setEvent = 'set failed';
         }
         console.log(setEvent.toUpperCase(), setData.user, setData.set);
-        setData.gameState = m.toJs(game.updateScore(click.user, scoreDiff, gameState));
+        gameState = m.pipeline(gameState,
+            m.curry(game.updateScore, setData.user, scoreDiff),
+            m.curry(game.emptyClaimed, setData.user)
+        );
+        setData.gameState = m.toJs(gameState);
         io.emit(setEvent, setData);
     }
 
