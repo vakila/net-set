@@ -46,11 +46,40 @@ function shuffleIDs(deck) {
     return idQueue;
 }
 
-function removeDealt(n, oldState) {
+function deal(oldState, slotID) {
+    var deck = m.get(oldState, 'deck');
+    var oldBoard = m.get(oldState, 'board');
     var oldToDeal = m.get(oldState, 'toDeal');
-    var newState = m.assoc(oldState, 'toDeal', m.drop(n, oldToDeal));
-    return newState;
+
+    var newBoard = m.assoc(oldBoard, slotID, m.peek(oldToDeal));
+    var newToDeal = m.pop(oldToDeal);
+
+    return m.assoc(m.assoc(oldState, 'board', newBoard), 'toDeal', newToDeal);
 }
+
+exports.startBoard = function(oldState) {
+    return m.pipeline(
+        oldState,
+        m.curry(deal, 'A'),
+        m.curry(deal, 'B'),
+        m.curry(deal, 'C'),
+        m.curry(deal, 'D'),
+        m.curry(deal, 'E'),
+        m.curry(deal, 'F'),
+        m.curry(deal, 'G'),
+        m.curry(deal, 'H'),
+        m.curry(deal, 'I'),
+        m.curry(deal, 'J'),
+        m.curry(deal, 'K'),
+        m.curry(deal, 'L')
+    );
+}
+
+// function removeDealt(n, oldState) {
+//     var oldToDeal = m.get(oldState, 'toDeal');
+//     var newState = m.assoc(oldState, 'toDeal', m.drop(n, oldToDeal));
+//     return newState;
+// }
 
 exports.addPlayer = function(name, color, oldState) {
     return m.assocIn(oldState, ['players', name], m.hashMap('color', color, 'score', 0, 'claimed', m.set()));
