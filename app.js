@@ -41,13 +41,22 @@ io.on('connection', function(socket){
     console.log('gameState.players:', players);
     // socket.broadcast.emit('log on', name);
     io.emit('log on', name, color);
-  })
+  });
   socket.on('log off', function(name) {
     console.log('LOG OFF', name);
     gameState = game.removePlayer(name, gameState);
     console.log('gameState.players:', m.get(gameState, 'players'));
     socket.broadcast.emit('log off', name);
-  })
+  });
+
+  // START GAME
+  socket.on('start game', function() {
+    console.log('START GAME');
+    gameState = game.startBoard(gameState);
+    console.log('gameState.board:', m.get(gameState, 'board'));
+    io.emit('start game', m.toJs(gameState));
+    // io.emit('start game', gameState);
+  });
 
   // CARD CLICK
   socket.on('card click', function(click){
