@@ -84,11 +84,7 @@ exports.startBoard = function(oldState) {
     }, oldState, slots);
 }
 
-// function removeDealt(n, oldState) {
-//     var oldToDeal = m.get(oldState, 'toDeal');
-//     var newState = m.assoc(oldState, 'toDeal', m.drop(n, oldToDeal));
-//     return newState;
-// }
+
 
 exports.addPlayer = function(name, color, oldState) {
     return m.assocIn(oldState, ['players', name], m.hashMap('color', color, 'score', 0, 'claimed', m.set()));
