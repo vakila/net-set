@@ -9,7 +9,7 @@ var set = require('./setLogic.js');
 //     'board': map{ <slot id>: <card id> },
 //     'players': map{<name>: map{'color': <int>,
 //                                'score': <int>,
-//                                'claimed': <card sequence>}
+//                                'claimed': set #(<card>)}
 //                   }
 // }
 
@@ -109,6 +109,11 @@ exports.checkForSet = function(player, state) {
     console.log("claimed:", claimed);
     console.log("playerHasSet:", set.isSet(claimed));
     return set.isSet(claimed);
+}
+
+exports.emptyClaimed = function(oldState, player) {
+    console.log("emptying claimed for", player);
+    return m.assocIn(oldState, ['players', player, 'claimed'], m.set());
 }
 
 // //TODO

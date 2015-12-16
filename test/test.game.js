@@ -99,6 +99,19 @@ describe('checkForSet', function() {
     });
 });
 
+describe('emptyClaimed', function() {
+    it('should make gameState.players.player.claimed an empty set', function(){
+        var state1 = game.addPlayer('Anjana', 5, game.getInitialState());
+        var claimedState = m.reduce(function(state, cardID) {
+            return game.claimCard('Anjana', cardID, state);
+        }, state1, m.range(1, 4));
+        var emptyState = game.emptyClaimed(claimedState, 'Anjana');
+        var claimed = m.getIn(emptyState, ['players', 'Anjana', 'claimed']);
+        assert(m.isSet(claimed));
+        assert.equal(m.count(claimed), 0);
+    });
+});
+
 describe('startBoard', function() {
     var state;
     beforeEach(function() {
