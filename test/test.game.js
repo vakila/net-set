@@ -185,3 +185,51 @@ describe('discardSet', function() {
             });
     });
 });
+
+describe('needsDownsize', function() {
+    var board0;
+    before(function() {
+        board0 = m.get(game.startBoard(game.getInitialState()), 'board');
+    });
+    it('should return false if the first 12 slots are full', function(){
+        assert.equal(game.needsDownsize(board0), false);
+        var board1 = m.pipeline(board0,
+            m.curry(m.assoc, 'M', 100),
+            m.curry(m.assoc, 'N', 101),
+            m.curry(m.assoc, 'O', 102)
+        );
+        assert.equal(game.needsDownsize(board1), false);
+        var board2 = m.pipeline(board1,
+            m.curry(m.assoc, 'P', 103),
+            m.curry(m.assoc, 'Q', 104),
+            m.curry(m.assoc, 'R', 105)
+        );
+        assert.equal(game.needsDownsize(board2), false);
+    });
+    it('should return false if the last 6 slots are empty', function(){
+        assert.equal(game.needsDownsize(board0), false);
+        var board1 = m.pipeline(board0,
+            m.curry(m.assoc, 'A', null),
+            m.curry(m.assoc, 'B', null),
+            m.curry(m.assoc, 'C', null)
+        );
+        assert.equal(game.needsDownsize(board1), false);
+    });
+    it('should return true if there are cards above openings', function(){
+        var board1 = m.pipeline(board0,
+            m.curry(m.assoc, 'A', null),
+            m.curry(m.assoc, 'B', null),
+            m.curry(m.assoc, 'C', null),
+            m.curry(m.assoc, 'M', 100),
+            m.curry(m.assoc, 'N', 101),
+            m.curry(m.assoc, 'O', 102)
+        );
+        assert(game.needsDownsize(board1));
+        var board2 = m.pipeline(board0,
+            m.curry(m.assoc, 'D', null),
+            m.curry(m.assoc, 'P', 103)
+        );
+        assert(game.needsDownsize(board2));
+
+    });
+});
