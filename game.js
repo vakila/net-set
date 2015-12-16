@@ -65,9 +65,9 @@ function discard(oldState, card) {
     var cardID = m.get(card, 'id');
     console.log("discarding card", cardID);
 
-    var slotCardPair = m.filter(function(slotCard) {
+    var slotCardPair = m.nth(m.filter(function(slotCard) {
         return m.nth(slotCard, 1) === cardID;
-    }, m.get(oldState, 'board'));
+    }, m.get(oldState, 'board')), 0);
     var slotID = m.nth(slotCardPair, 0);
     console.log("card was in slot", slotID);
 
@@ -75,11 +75,11 @@ function discard(oldState, card) {
     return m.assocIn(oldState, ['board', slotID], null);
 }
 
-function discardSet(oldState, setCards) {
+exports.discardSet = function(oldState, setCards) {
     return m.reduce(function(state, card) {
         console.log("REDUCING:")
         console.log("card", card);
-        console.log("board", m.get(state,board));
+        console.log("board", m.get(state, 'board'));
         return discard(state, card);
     }, oldState, setCards);
 }
