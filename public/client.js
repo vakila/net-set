@@ -101,8 +101,21 @@ socket.on('card click', function(click) {
 // TODO update DOM on events using underscore templates, e.g.:
 // var titleNode = $(tmpl("<h1><%= title %></h1>", {title:"My site"}));
 
-function updateCardContent(oldID, newID, newCard) {
-    $('#'+oldID).replaceWith(getCardContent(newID, newCard));
+function fillCardSlot(slotID, newCard) {
+    console.log("fillCardSlot:", slotID, newCard);
+    var slotDiv = $('#slot-'+slotID);
+    slotDiv.empty();
+
+    if (newCard) {
+        var cardTmpl = $('#cardContentTemplate').text();
+        var cardContent = $(tmpl(cardTmpl,
+            {card: newCard, slot: slotID, svgShapes: getSVGs(newCard)}));
+        slotDiv.append(cardContent);
+    }
+}
+
+function updateCardContent(oldID, newCard) {
+    $('#'+oldID).replaceWith(getCardContent(newCard));
 }
 
 function getCardContent(newCard) {
