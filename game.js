@@ -2,7 +2,8 @@ var m = require('mori');
 var set = require('./setLogic.js');
 
 // map{'deck': <card sequence ordered by ID>,
-//     'toDeal': <sequence of card IDs as ints in random order>,
+//     'toDeal': #queue <of card IDs as ints in random order>,
+//     'board': map{ <slot id>: <card id> },
 //     'players': map{<name>: map{'color': <int>,
 //                                'score': <int>,
 //                                'claimed': <card sequence>}
@@ -12,16 +13,37 @@ var set = require('./setLogic.js');
 exports.getInitialState = function() {
     var deck = set.makeDeck();
     var toDeal = shuffleIDs(deck);
+    var board = m.hashMap('A', null,
+                          'B', null,
+                          'C', null,
+                          'D', null,
+                          'E', null,
+                          'F', null,
+                          'G', null,
+                          'H', null,
+                          'I', null,
+                          'J', null,
+                          'K', null,
+                          'L', null,
+                          'M', null,
+                          'N', null,
+                          'O', null,
+                          'P', null,
+                          'Q', null,
+                          'R', null);
     var players = m.hashMap();
-    var gameState = m.hashMap('deck', deck, 'toDeal', toDeal, 'players', players);
+    var gameState = m.hashMap('deck', deck,
+                              'board', board,
+                              'toDeal', toDeal,
+                              'players', players);
     return gameState;
 }
 
 function shuffleIDs(deck) {
     var idSeq = m.sortBy(function(c) { return Math.random() }, m.range(m.count(deck)));
-    // var idQueue = m.into(m.queue(), idSeq);
+    var idQueue = m.into(m.queue(), idSeq);
     // console.log("idQueue:", idQueue);
-    return idSeq;
+    return idQueue;
 }
 
 function removeDealt(n, oldState) {
