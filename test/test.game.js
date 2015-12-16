@@ -21,6 +21,13 @@ describe('getInitialState', function(){
         assert(m.hasKey(state, 'players'));
         assert(m.isMap(m.get(state, 'players')));
     });
+    it('should have a board map with 18 keys', function(){
+        var state = game.getInitialState();
+        assert(m.hasKey(state, 'board'));
+        var board = m.get(state, 'board');
+        assert(m.isMap(board));
+        assert.equal(m.count(m.keys(board)), 18);
+    });
 });
 
 describe('addPlayer', function(){
