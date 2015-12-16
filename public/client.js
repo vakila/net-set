@@ -26,6 +26,7 @@ socket.on('log on', function(name, color) {
 });
 socket.on('log off', function(name) {
   userActivity(name, "left");
+  removePlayer(name);
 });
 
 // RECEIVE LOAD GAME EVENT
@@ -62,6 +63,7 @@ function updateBoard(gameState) {
   }
 }
 
+// MANAGE PLAYERS
 function loadPlayers(playersMap) {
   console.log("loadPlayers");
   mori.each(mori.intoArray(mori.keys(playersMap)), function(name) {
@@ -73,7 +75,6 @@ function loadPlayers(playersMap) {
   });
 }
 
-// ADD/REMOVE PLAYERS
 function fillPlayerTemplate(playerName, playerScore, playerColor) {
    var playerTemplate = $('#playerTemplate').text();
    return $(tmpl(playerTemplate,  {name: playerName, score: playerScore, color: playerColor}));
@@ -83,11 +84,14 @@ function addPlayer(filledTemplate) {
   $( "#players" ).append( filledTemplate );
 }
 
+function removePlayer(playerName) {
+  $("#"+playerName).remove();
+}
+
 function updateScore(playerName, newScore) {
   $("#"+playerName).find(".score").text(newScore);
 }
 
-//TODO function removePlayer(name) {}
 
 
 // deprecated
@@ -124,8 +128,7 @@ socket.on('card click', function(click) {
 });
 
 
-// TODO update DOM on events using underscore templates, e.g.:
-// var titleNode = $(tmpl("<h1><%= title %></h1>", {title:"My site"}));
+// MANAGE CARDS
 
 function fillCardSlot(slotID, newCard) {
     console.log("fillCardSlot:", slotID, newCard);
