@@ -127,4 +127,48 @@ describe('startBoard', function() {
         var toDeal = m.get(state, 'toDeal');
         assert.equal(m.count(toDeal), 69);
     });
-})
+});
+
+describe('discardSet', function() {
+    var discardState;
+    before(function() {
+        var state0 = game.getInitialState();
+        var newBoard = m.pipeline(
+            m.get(state0, 'board'),
+            m.curry(m.assoc, 'A', 1),
+            m.curry(m.assoc, 'B', 2),
+            m.curry(m.assoc, 'C', 3),
+            m.curry(m.assoc, 'D', 4),
+            m.curry(m.assoc, 'E', 5),
+            m.curry(m.assoc, 'F', 6),
+            m.curry(m.assoc, 'G', 7),
+            m.curry(m.assoc, 'H', 8),
+            m.curry(m.assoc, 'I', 9),
+            m.curry(m.assoc, 'J', 10),
+            m.curry(m.assoc, 'K', 11),
+            m.curry(m.assoc, 'L', 12)
+        );
+        console.log(newBoard)
+        var state = m.assocIn(state0, ['board'], newBoard);
+        var deck = m.get(state, 'deck');
+        discardState = game.discardSet(state, m.set(m.map(function(id) {
+            return m.nth(deck, id);
+        }, m.vector(1, 2, 3))));
+    });
+    it('should remove the cardIDs from the appropriate slots', function(){
+        console.log('board:', m.get(discardState, 'board'));
+        m.each(m.vector('A', 'B', 'C'), function(slot) {
+            console.log("testing slot", slot);
+            assert.equal(m.getIn(discardState, ['board', slot]), null);
+        });
+    });
+    it('should not change the other slots', function(){
+        console.log('board:', m.get(discardState, 'board'));
+        var safeSlots = m.vector('D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L')
+        m.each(m.vector(0,1,2,3,4,5,6,7,8),
+            function(index) {
+                var slot = m.nth(safeSlots, index);
+                assert.equal(m.getIn(discardState, ['board', slot]), index+4);
+            });
+    });
+});
