@@ -13,24 +13,7 @@ var set = require('./setLogic.js');
 exports.getInitialState = function() {
     var deck = set.makeDeck();
     var toDeal = shuffleIDs(deck);
-    var board = m.hashMap('A', null,
-                          'B', null,
-                          'C', null,
-                          'D', null,
-                          'E', null,
-                          'F', null,
-                          'G', null,
-                          'H', null,
-                          'I', null,
-                          'J', null,
-                          'K', null,
-                          'L', null,
-                          'M', null,
-                          'N', null,
-                          'O', null,
-                          'P', null,
-                          'Q', null,
-                          'R', null);
+    var board = getEmptyBoard();
     var players = m.hashMap();
     var gameState = m.hashMap('deck', deck,
                               'board', board,
@@ -44,6 +27,14 @@ function shuffleIDs(deck) {
     var idQueue = m.into(m.queue(), idSeq);
     // console.log("idQueue:", idQueue);
     return idQueue;
+}
+
+// BOARD
+function getEmptyBoard() {
+    var slots = m.vector('A', 'B', 'C', 'D', 'E', 'F',
+        'G', 'H', 'I', 'J', 'K', 'L',
+        'M', 'N', 'O', 'P', 'Q', 'R');
+    return m.zipmap(slots, m.map(m.constantly(null), m.range(18)));
 }
 
 function deal(oldState, slotID) {
