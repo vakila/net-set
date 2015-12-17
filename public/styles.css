@@ -75,20 +75,43 @@ a.button {
 .pcol-1 {
   background-color: #FFBAE0; /* pale red */
 }
+.pcol-1.marker:before {
+  border-top-color: #FFBAE0;
+}
+
 .pcol-2 {
   background-color: #FFE3A3; /* pale orange */
 }
+.pcol-2.marker:before {
+  border-top-color: #FFE3A3;
+}
+
 .pcol-3 {
   background-color: #FCFF98; /* pale yellow */
 }
+.pcol-3.marker:before {
+  border-top-color: #FCFF98;
+}
+
 .pcol-4 {
   background-color: #B5FFA5; /* pale green */
 }
+.pcol-4.marker:before {
+  border-top-color: #B5FFA5;
+}
+
 .pcol-5 {
   background-color: #A5E3FF; /* pale blue */
 }
+.pcol-5.marker:before {
+  border-top-color: #A5E3FF;
+}
+
 .pcol-6 {
   background-color: #EEAAFC; /* pale purple */
+}
+.pcol-6.marker:before {
+  border-top-color: #EEAAFC;
 }
 
 

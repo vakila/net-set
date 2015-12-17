@@ -88,12 +88,26 @@
 }
 
 .marker {
-  width:20px;
-  height:20px;
+  display: inline-block;
+  width: 0;
+  height: 0;
+  background-color: transparent;
+  border-top: 20px solid black;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  position: relative;
   margin: 0px -7px;
+
 }
 
-.marker polygon {
-  stroke: white;
-  stroke-width: 1px;
+.marker:before {
+  content: '';
+  width: 0;
+  height: 0;
+  border-top: 16px solid;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  position: absolute;
+  top: -18.6px;
+  left: -8px;
 }
