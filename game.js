@@ -57,9 +57,9 @@ function partitionSlots(slots) {
 
 function getPairsWhereCardIs(nullOrNot, board) {
     //nullOrNot should be null or !null
-    console.log("nullOrNot", nullOrNot);
+    // console.log("nullOrNot", nullOrNot);
     return m.filter(function(pair) {
-        console.log("filtering", pair, "-", !!m.nth(pair, 1), !!m.nth(pair, 1) === !!nullOrNot);
+        // console.log("filtering", pair, "-", !!m.nth(pair, 1), !!m.nth(pair, 1) === !!nullOrNot);
         return !!m.nth(pair, 1) === !!nullOrNot;
     }, board);
 }
@@ -120,13 +120,8 @@ exports.downsizeIfNeeded = function(oldState) {
 }
 
 function refillBoard(oldState) {
-    console.log("Attempting refillBoard...")
     var sorted12 = m.take(12, sortBoard(m.get(oldState, 'board')));
-    console.log("sorted12:", sorted12);
-    var emptyPairs = getPairsWhereCardIs(null, sorted12);
-    console.log("emptyPairs:", emptyPairs);
-    var emptySlots = getSlotIDs(emptyPairs);
-    console.log("emptySlots:", emptySlots);
+    var emptySlots = getSlotIDs(getPairsWhereCardIs(null, sorted12));
     return m.reduce(function(state, slot) {
         return deal(state, slot);
     }, oldState, emptySlots);
