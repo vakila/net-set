@@ -43,6 +43,33 @@ exports.startBoard = function(oldState) {
     }, oldState, slots);
 }
 
+function hasOpenings(board, slotGroup) {
+    return m.reduce(function(answer, slot) {
+        return answer || m.get(board, slot) === null;
+    }, false, slotGroup);
+}
+
+function hasCards(board, slotGroup) {
+    return m.reduce(function(answer, slot) {
+        return answer || m.get(board, slot) !== null;
+    }, false, slotGroup);
+}
+
+exports.needsDownsize = function(board) {
+    // console.log("checking if needsDownsize...")
+    // console.log("board:", m.sortBy(function(pair) { return m.nth(pair, 0); }, board));
+    var byThrees = m.partition(3, SLOTS);
+    var first12 = m.flatten(m.take(4, byThrees));
+    var extra1 = m.nth(byThrees, 4);
+    var extra2 = m.nth(byThrees, 5);
+    if (hasCards(board, extra2)) {
+        return hasOpenings(board, m.into(first12, extra1));
+    } else if (hasCards(board, extra1)) {
+        return hasOpenings(board, first12);
+    } else {
+        return false;
+    }
+}
 
 //// CARD DEALING/DISCARDING ////
 
