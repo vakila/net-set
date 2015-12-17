@@ -127,6 +127,23 @@ socket.on('card click', function(click) {
   console.log(click.user, "clicked card", click.card);
 });
 
+function fillMarkerTemplate(cardID, playerName, playerColor) {
+  var markerTmpl = $('#markerTemplate').text();
+  return $(tmpl(markerTmpl, { name: playerName, color: playerColor }));
+}
+
+function addMarker(cardID, playerName, playerColor) {
+    var filledTemplate = fillMarkerTemplate(cardID, playerName, playerColor);
+    console.log("adding marker:", cardID, filledTemplate);
+    $('#'+cardID+" .markers").append(filledTemplate);
+}
+
+function removeMarker(cardID, playerName) {
+    var marker = $('#'+cardID+" .markers [data-player="+playerName+"]");
+    console.log("removing marker:", marker);
+    marker.remove();
+}
+
 
 // MANAGE CARDS
 
