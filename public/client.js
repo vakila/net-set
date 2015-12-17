@@ -195,7 +195,8 @@ function fillCardSlot(slotID, newCard) {
     if (newCard) {
         var cardTmpl = $('#cardContentTemplate').text();
         var cardContent = $(tmpl(cardTmpl,
-            {card: newCard, slot: slotID, svgShapes: getSVGs(newCard)}));
+            {card: newCard, slot: slotID}));
+            // {card: newCard, slot: slotID, svgShapes: getSVGs(newCard)}));
         slotDiv.append(cardContent);
         slotDiv.removeClass("hidden");
     }
