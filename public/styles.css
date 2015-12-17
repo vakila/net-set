@@ -64,6 +64,11 @@ button[name="start"] {
   font-size: 3em;
 }
 
+button[name="join"] {
+  font-size: 2em;
+  padding: .5em;
+}
+
 button[name="deal-3"]:disabled {
   opacity: 0.2;
 }
