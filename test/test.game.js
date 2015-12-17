@@ -68,6 +68,24 @@ describe('claimCard', function(){
     });
 });
 
+describe('unclaimCard', function() {
+    it('should remove the card object from the players.player.claimed set', function(){
+        var state = game.addPlayer('Leia', 1, game.getInitialState());
+        var claimedState = game.claimCard('Leia', 1, game.claimCard('Leia', 2, game.claimCard('Leia', 3, state)));
+        var unclaimedState = game.unclaimCard('Leia', 2, claimedState);
+        var claimed = m.getIn(unclaimedState, ['players', 'Leia', 'claimed']);
+        assert.equal(m.count(claimed), 2);
+        assert.equal(m.count(m.intersection(claimed, m.set([m.nth(m.get(claimedState, 'deck'), 2)]))), 0);
+    });
+    it('should have no effect if the card was never claimed', function() {
+        var state = game.addPlayer('Leia', 1, game.getInitialState());
+        var claimedState = game.claimCard('Leia', 2, game.claimCard('Leia', 3, state));
+        var unclaimedState = game.unclaimCard('Leia', 4, claimedState);
+        var claimed = m.getIn(unclaimedState, ['players', 'Leia', 'claimed']);
+        assert.equal(m.count(claimed), 2);
+    });
+})
+
 describe('checkForCandidate', function() {
     var state;
     beforeEach(function() {

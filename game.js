@@ -192,12 +192,21 @@ exports.discardSet = function(oldState, setCards) {
 
 //// CARD AND SET CLAIMING ////
 
+//TODO claimCard and unclaimCard differ only in conj vs. disj
+// refactor to close over a helper function which takes the fn as arg
 exports.claimCard = function(player, cardID, oldState) {
     var card = m.nth(m.get(oldState, 'deck'), Number(cardID));
     var oldClaimed = m.getIn(oldState, ['players', player, 'claimed']);
     var newClaimed = m.conj(oldClaimed, card);
     return m.assocIn(oldState, ['players', player, 'claimed'], newClaimed);
 }
+exports.unclaimCard = function(player, cardID, oldState) {
+    var card = m.nth(m.get(oldState, 'deck'), Number(cardID));
+    var oldClaimed = m.getIn(oldState, ['players', player, 'claimed']);
+    var newClaimed = m.disj(oldClaimed, card);
+    return m.assocIn(oldState, ['players', player, 'claimed'], newClaimed);
+}
+// or: exports.toggleClaimed(oldState, player, cardID) ?
 
 exports.checkForCandidate = function(player, state) {
     var claimed = m.getIn(state, ['players', player, 'claimed']);
