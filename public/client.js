@@ -124,7 +124,8 @@ $('.card').click(function(event) {
 });
 
 socket.on('card click', function(click) {
-  console.log(click.user, "clicked card", click.card);
+  console.log(click.player, "clicked card", click.card);
+  addMarker(click.card, click.player, click.color);
 });
 
 function fillMarkerTemplate(cardID, playerName, playerColor) {
