@@ -61,12 +61,13 @@ io.on('connection', function(socket){
   // CARD CLICK
   socket.on('card click', function(click){
     console.log('CARD CLICK', click.user, click.card);
-    gameState = game.claimCard(click.user, click.card, gameState);
+    gameState = game.toggleClaimed(click.user, click.card, gameState);
     var claimed = m.getIn(gameState, ['players', click.user, 'claimed']);
     console.log('gameState.players.' + click.user + '.claimed:', claimed);
     io.emit('card click', {'player':click.user,
                            'card': click.card,
-                           'color': m.getIn(gameState, ['players', click.user, 'color'])}
+                           'color': m.getIn(gameState, ['players', click.user, 'color']),
+                           'claimed': game.isClaimed(click.card, click.user, gameState)}
     );
     // can I turn this into a function that takes 2 callbacks?
     //game.processClick(click, function() {socket.emit("success");}, function() {socket.emit("failure");})
