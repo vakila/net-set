@@ -66,6 +66,9 @@ button[name="start"] {
 button[name="deal-3"] {
   cursor: pointer;
 }
+button[name="deal-3"]:disabled {
+  opacity: 0.2;
+}
 
 
 /*** SCORES ***/

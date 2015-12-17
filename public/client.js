@@ -63,8 +63,7 @@ function updateBoard(gameState) {
     console.log("slot:", slot);
     fillCardSlot(slot, deck[boardMap[slot]]);
   }
-  var cardsLeft = gameState.toDeal.length;
-  $("#cards-left").text(cardsLeft);
+  updateDealer(gameState.toDeal);
 }
 
 // MANAGE PLAYERS
@@ -168,6 +167,24 @@ function clearMarkers(player, set) {
 $("button[name='deal-3']").click(function(event) {
   console.log("Upsize requested!");
   socket.emit('request upsize', {});
+});
+
+function updateDealer(toDeal) {
+    // update card count
+    var cardsLeft = toDeal.length;
+    $("#cards-left").text(cardsLeft);
+    // update deal-3 button
+    if ($(".card.hidden").size() == 0) {
+       console.log("disabling deal-3 button");
+       $("button[name='deal-3']").prop("disabled",true);
+   } else {
+       console.log("enabling deal-3 button")
+       $("button[name='deal-3']").prop("disabled",false);
+   }
+}
+
+socket.on('upsize', function(state) {
+  updateBoard(state);
 });
 
 function fillCardSlot(slotID, newCard) {

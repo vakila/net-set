@@ -58,6 +58,16 @@ io.on('connection', function(socket){
     // io.emit('start game', gameState);
   });
 
+  // UPSIZE
+  socket.on('request upsize', function(){
+    console.log("REQUEST UPSIZE");
+    console.log("Board before:", game.sortBoard(m.get(gameState, 'board')));
+    gameState = game.upsizeIfNeeded(gameState);
+    console.log("Board after:", game.sortBoard(m.get(gameState, 'board')));
+    console.log("UPSIZE");
+    io.emit('upsize', m.toJs(gameState));
+  });
+
   // CARD CLICK
   socket.on('card click', function(click){
     console.log('CARD CLICK', click.user, click.card);
