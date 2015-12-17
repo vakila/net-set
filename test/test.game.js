@@ -335,6 +335,21 @@ describe('downsizeIfNeeded', function() {
         assert(m.getIn(state2D, ['board', 'D']));
         assert.equal(m.getIn(state2D, ['board', 'P']), null);
     });
+    it('should not mistakenly discard card 0', function() {
+        var board1 = m.pipeline(board0,
+            m.curry(m.assoc, 'C', 0),
+            m.curry(m.assoc, 'D', null),
+            m.curry(m.assoc, 'P', 103)
+        );
+        var state1 = m.assoc(state0, 'board', board1);
+        var state1D = game.downsizeIfNeeded(state1);
+        console.log("state1 board:", game.sortBoard(m.get(state1, 'board')));
+        console.log("state1D board:", game.sortBoard(m.get(state1D, 'board')));
+        assert.equal(m.equals(state1D, state1), false);
+        assert.equal(m.getIn(state1D, ['board', 'C']), 0);
+        assert(m.getIn(state1D, ['board', 'D']));
+        assert.equal(m.getIn(state1D, ['board', 'P']), null);
+    });
 });
 
 describe('refillIfNeeded', function() {

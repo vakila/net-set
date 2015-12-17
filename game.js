@@ -59,8 +59,8 @@ function getPairsWhereCardIs(nullOrNot, board) {
     //nullOrNot should be null or !null
     // console.log("nullOrNot", nullOrNot);
     return m.filter(function(pair) {
-        // console.log("filtering", pair, "-", !!m.nth(pair, 1), !!m.nth(pair, 1) === !!nullOrNot);
-        return !!m.nth(pair, 1) === !!nullOrNot;
+        // console.log("filtering", pair, "-", (m.nth(pair, 1) !== null) === !!nullOrNot);
+        return (m.nth(pair, 1) !== null) === !!nullOrNot;
     }, board);
 }
 
@@ -104,6 +104,7 @@ function needsDownsize(board) {
 function downsizeBoard(oldBoard) {
     var sortedBoard = exports.sortBoard(oldBoard);
     var cards = getCardIDs(getPairsWhereCardIs(!null, sortedBoard));
+    // console.log("cards in board:", cards);
     return m.merge(getEmptyBoard(), m.zipmap(SLOTS, cards));
 }
 
