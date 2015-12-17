@@ -43,6 +43,14 @@ exports.startBoard = function(oldState) {
     }, oldState, slots);
 }
 
+function partitionSlots(slots) {
+    var byThrees = m.partition(3, slots);
+    var first12 = m.flatten(m.take(4, byThrees));
+    var extra1 = m.nth(byThrees, 4);
+    var extra2 = m.nth(byThrees, 5);
+    return [first12, extra1, extra2];
+}
+
 function hasOpenings(board, slotGroup) {
     return m.reduce(function(answer, slot) {
         return answer || m.get(board, slot) === null;
@@ -58,10 +66,8 @@ function hasCards(board, slotGroup) {
 exports.needsDownsize = function(board) {
     // console.log("checking if needsDownsize...")
     // console.log("board:", m.sortBy(function(pair) { return m.nth(pair, 0); }, board));
-    var byThrees = m.partition(3, SLOTS);
-    var first12 = m.flatten(m.take(4, byThrees));
-    var extra1 = m.nth(byThrees, 4);
-    var extra2 = m.nth(byThrees, 5);
+    var grouped = partitionSlots(SLOTS);
+    var first12 = grouped[0], extra1 = grouped[1], extra2 = grouped[2];
     if (hasCards(board, extra2)) {
         return hasOpenings(board, m.into(first12, extra1));
     } else if (hasCards(board, extra1)) {
