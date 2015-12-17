@@ -291,3 +291,51 @@ describe('downsizeIfNeeded', function() {
         assert.equal(m.getIn(state2D, ['board', 'P']), null);
     });
 });
+
+describe('refillIfNeeded', function() {
+    var state0;
+    before(function() {
+        state0 = game.startBoard(game.getInitialState());
+    });
+    it('should do nothing if the first 12 slots are full', function() {
+        assert(m.equals(state0, game.refillIfNeeded(state0)));
+        var state1 = m.pipeline(state0,
+            m.curry(m.assocIn, ['board', 'M'], 100),
+            m.curry(m.assocIn, ['board', 'N'], 101),
+            m.curry(m.assocIn, ['board', 'O'], 102)
+        );
+        assert(m.equals(state1, game.refillIfNeeded(state1)));
+        var state2 = m.pipeline(state1,
+            m.curry(m.assocIn, ['board', 'P'], 103),
+            m.curry(m.assocIn, ['board', 'Q'], 104),
+            m.curry(m.assocIn, ['board', 'R'], 105)
+        );
+        assert(m.equals(state2, game.refillIfNeeded(state2)));
+    });
+    it('should deal new cards to openings in the first 12 slots', function() {
+        var state1 = m.pipeline(state0,
+            m.curry(m.assocIn, ['board', 'A'], null),
+            m.curry(m.assocIn, ['board', 'B'], null),
+            m.curry(m.assocIn, ['board', 'C'], null)
+        );
+        var state1R = game.refillIfNeeded(state1);
+        console.log("state1R board:", m.get(state1R, 'board'));
+        assert.equal(m.equals(state1, state1R), false);
+        m.each(m.vector('A', 'B', 'C'), function(slot) {
+            assert(m.getIn(state1R, ['board', slot]));
+        });
+
+        var state2 = m.pipeline(state0,
+            m.curry(m.assocIn, ['board', 'D'], null),
+            m.curry(m.assocIn, ['board', 'H'], null),
+            m.curry(m.assocIn, ['board', 'K'], null)
+        );
+        var state2R = game.refillIfNeeded(state2);
+        console.log("state2R board:", m.get(state2R, 'board'));
+        assert.equal(m.equals(state2, state2R), false);
+        m.each(m.vector('D', 'H', 'K'), function(slot) {
+            assert(m.getIn(state2R, ['board', slot]));
+        });
+
+    });
+});

@@ -119,6 +119,36 @@ exports.downsizeIfNeeded = function(oldState) {
     }
 }
 
+function refillBoard(oldState) {
+    console.log("Attempting refillBoard...")
+    var sorted12 = m.take(12, sortBoard(m.get(oldState, 'board')));
+    console.log("sorted12:", sorted12);
+    var emptyPairs = getPairsWhereCardIs(null, sorted12);
+    console.log("emptyPairs:", emptyPairs);
+    var emptySlots = getSlotIDs(emptyPairs);
+    console.log("emptySlots:", emptySlots);
+    return m.reduce(function(state, slot) {
+        return deal(state, slot);
+    }, oldState, emptySlots);
+}
+
+exports.refillIfNeeded = function(oldState) {
+    var first12 = partitionSlots(SLOTS)[0];
+    var oldBoard = m.get(oldState, 'board');
+    console.log("board:", sortBoard(oldBoard));
+    if (hasOpenings(oldBoard, first12)) {
+        console.log("needs refill!")
+        return refillBoard(oldState);
+    } else {
+        console.log('no refill needed');
+        return oldState;
+    }
+}
+
+exports.upsizeIfNeeded = function(oldState) {
+    //TODO
+}
+
 //// CARD DEALING/DISCARDING ////
 
 function shuffleIDs(deck) {
