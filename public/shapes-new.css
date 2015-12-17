@@ -1,0 +1,74 @@
+/*.shape {
+  width: 100px;
+  height: 36%;
+  margin: 5%;
+}*/
+
+
+.shaded-red:before {
+  background: linear-gradient(to right, white, white 30%, red 30%, red 70%, white 70%, white);
+  background-size: 5px 5px;
+}
+
+.solid-red {
+  background-color: red;
+}
+
+.open-red {
+  background-color: white;
+}
+
+.pill:before {
+  content: "";
+  height: 100%;
+  width: 100%;
+  display: inline-block;
+}
+.pill {
+  margin: 5px;
+  /*display: inline-block;*/
+  height: 20%;
+  width: 60%;
+  border: 5px solid red;
+  border-radius: 30%/50%;
+  overflow: hidden;
+}
+
+.diamond:before {
+  content: "";
+  height: 100px;
+  width: 100px;
+  display: inline-block;
+  transform: rotate(-45deg);
+  transform-origin: 0% 50%;
+  /*background: linear-gradient(to right, white, white 30%, red 30%, red 70%, white 70%, white);
+  background-size: 5px 5px;*/
+}
+.diamond {
+  margin-top: -5px;
+  /*display: inline-block;*/
+  height: 50px;
+  width: 50px;
+  transform-origin: 50% 50%;
+  transform: scaleY(.6) rotate(45deg);
+  border: 5px solid red;
+  overflow: hidden;
+  flex-shrink: 0;
+  flex-grow: 0;
+}
+
+.rectangle:before {
+  content: "";
+  height: 100%;
+  width: 100%;
+  display: inline-block;
+}
+.rectangle {
+  margin: 5px;
+  /*display: inline-block;*/
+  height: 20%;
+  width: 60%;
+  border: 5px solid red;
+  /*transform: scaleY(0.8);*/
+  overflow: hidden;
+}

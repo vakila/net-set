@@ -7,7 +7,7 @@
     <!-- Styles -->
     <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous"> -->
     <link rel="stylesheet" type="text/css" href="public/styles.css">
-    <link rel="stylesheet" type="text/css" href="public/shapes.css">
+    <link rel="stylesheet" type="text/css" href="public/shapes-new.css">
     <link rel="stylesheet" type="text/css" href="public/cards.css">
 </head>
 
@@ -57,19 +57,14 @@
 
     <div class="card">
         <div id="0" class="card-content">
-            <svg class="shape solid-purple diamond">
-                <polygon points="3,20 35,3 67,20 35,37"/>
-            </svg>
-            <svg class="shape solid-purple diamond">
-                <polygon points="3,20 35,3 67,20 35,37"/>
-            </svg>
-            <svg class="shape solid-purple diamond">
-                <polygon points="3,20 35,3 67,20 35,37"/>
-            </svg>
+            <div class="shape open-red diamond"></div>
+            <div class="shape shaded-red diamond"></div>
+            <div class="shape solid-red diamond"></div>
+
         </div>
     </div>
 
-    <div class="card">
+    <div class="card hidden">
         <div id="1" class="card-content">
             <svg class="shape open-green rectangle">
                 <rect/>
@@ -83,7 +78,7 @@
         </div>
     </div>
 
-    <div class="card">
+    <div class="card hidden">
         <div id="2" class="card-content">
             <svg class="shape shaded-red diamond">
                 <polygon points="3,20 35,3 67,20 35,37"/>
@@ -93,24 +88,21 @@
 
     <div class="card">
         <div id="3" class="card-content">
-            <svg class="shape solid-purple pill">
-                <ellipse cx="35" cy="20" rx="33" ry="18"/>
-            </svg>
-            <svg class="shape solid-purple pill">
-                <ellipse cx="35" cy="20" rx="33" ry="18"/>
-            </svg>
-        </div>
-    </div>
-
-    <div class="card claimed">
-        <div id="4" class="card-content">
-            <svg class="shape open-red rectangle">
-                <rect/>
-            </svg>
+            <div class="shape open-red pill"></div>
+            <div class="shape shaded-red pill"></div>
+            <!-- <div class="shape solid-red pill"></div> -->
         </div>
     </div>
 
     <div class="card">
+        <div id="4" class="card-content">
+            <div class="shape open-red rectangle"></div>
+            <div class="shape shaded-red rectangle"></div>
+            <div class="shape solid-red rectangle"></div>
+        </div>
+    </div>
+
+    <div class="card hidden">
         <div id="5" class="card-content">
             <svg class="shape solid-red rectangle">
                 <rect/>
@@ -124,7 +116,7 @@
         </div>
     </div>
 
-    <div class="card">
+    <div class="card hidden">
         <div id="6" class="card-content">
             <svg class="shape open-purple diamond">
                 <polygon points="3,20 35,3 67,20 35,37"/>
@@ -135,7 +127,7 @@
         </div>
     </div>
 
-    <div class="card">
+    <div class="card hidden">
         <div id="7" class="card-content">
             <svg class="shape open-green pill">
                 <ellipse cx="35" cy="20" rx="33" ry="18"/>
@@ -143,7 +135,7 @@
         </div>
     </div>
 
-    <div class="card">
+    <div class="card hidden">
         <div id="8" class="card-content">
             <div class="markers">
                 <div class="marker pcol-5" data-player="Ben"></div>
@@ -157,7 +149,7 @@
         </div>
     </div>
 
-    <div class="card">
+    <div class="card hidden">
         <div id="9" class="card-content">
             <svg class="shape shaded-red rectangle">
                 <rect/>
@@ -165,7 +157,7 @@
         </div>
     </div>
 
-    <div class="card">
+    <div class="card hidden">
         <div id="10" class="card-content">
             <svg class="shape solid-purple diamond">
                 <polygon points="3,20 35,3 67,20 35,37"/>
@@ -173,7 +165,7 @@
         </div>
     </div>
 
-    <div class="card">
+    <div class="card hidden">
         <div id="11" class="card-content">
             <svg class="shape solid-red pill">
                 <ellipse cx="35" cy="20" rx="33" ry="18"/>
@@ -181,7 +173,7 @@
         </div>
     </div>
 
-    <div class="card">
+    <div class="card hidden">
         <div id="12" class="card-content">
             <svg class="shape shaded-green rectangle">
                 <rect/>
@@ -190,7 +182,7 @@
     </div>
 
     <!-- additional 3 cards to make 15: -->
-    <div class="card">
+    <div class="card hidden">
         <div id="13" class="card-content">
             <svg class="shape shaded-green rectangle">
                 <rect/>
@@ -204,7 +196,7 @@
         </div>
     </div>
 
-    <div class="card">
+    <div class="card hidden">
         <div id="14" class="card-content">
             <svg class="shape open-red diamond">
                 <polygon points="3,20 35,3 67,20 35,37"/>
@@ -217,7 +209,7 @@
 
     <!-- additional 3 cards to make 18: -->
 
-    <div class="card">
+    <div class="card hidden">
         <div id="15" class="card-content">
             <svg class="shape open-purple pill">
                 <ellipse cx="35" cy="20" rx="33" ry="18"/>
@@ -225,7 +217,7 @@
         </div>
     </div>
 
-    <div class="card">
+    <div class="card hidden">
         <div id="16" class="card-content">
             <svg class="shape shaded-purple rectangle">
                 <rect/>
@@ -233,7 +225,7 @@
         </div>
     </div>
 
-    <div class="card">
+    <div class="card hidden">
         <div id="17" class="card-content">
             <div class="markers">
                 <div class="marker pcol-1" data-player="Luke"></div>
@@ -264,7 +256,7 @@
 <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% --->
     <!-- <hr>
 <div id="testing">
-    <div class="card">
+    <div class="card hidden">
         <div class="card-content">
             <svg class="shape shaded-green">
                 <rect/>
