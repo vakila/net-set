@@ -22,7 +22,7 @@ function userActivity(name, joinedOrLeft) {
 }
 socket.on('log on', function(name, color) {
   userActivity(name, "joined");
-  addPlayer(fillPlayerTemplate(name, 0, color));
+  addPlayer(fillPlayerTemplate(name, 0, color, name === username));
 });
 socket.on('log off', function(name) {
   userActivity(name, "left");
@@ -76,9 +76,10 @@ function loadPlayers(playersMap) {
   });
 }
 
-function fillPlayerTemplate(playerName, playerScore, playerColor) {
+function fillPlayerTemplate(playerName, playerScore, playerColor, isMe) {
    var playerTemplate = $('#playerTemplate').text();
-   return $(tmpl(playerTemplate,  {name: playerName, score: playerScore, color: playerColor}));
+   return $(tmpl(playerTemplate,  { name: playerName, score: playerScore,
+                                    color: playerColor, isMe: isMe }));
 }
 
 function addPlayer(filledTemplate) {

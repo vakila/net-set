@@ -126,7 +126,7 @@
 </script>
 
 <script id="playerTemplate" type="text/template">
-    <div id="<%= name %>" class="player pcol-<%= color %>">
+    <div id="<%= name %>" class="player pcol-<%= color %> <% if (isMe) {%> me <% } %>">
         <%= name %>
         <span class="score"><%= score %></span>
     </div>
