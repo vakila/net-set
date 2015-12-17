@@ -4,18 +4,42 @@
   margin: 5%;
 }*/
 
+.open-red, .open-green, .open-purple {
+  background-color: white;
+}
+
+.open-red, .shaded-red, .solid-red {
+  border: 5px solid red;
+}
+.open-green, .shaded-green, .solid-green {
+  border: 5px solid green;
+}
+.open-purple, .shaded-purple, .solid-purple {
+  border: 5px solid purple;
+}
+
 
 .shaded-red:before {
   background: linear-gradient(to right, white, white 30%, red 30%, red 70%, white 70%, white);
   background-size: 5px 5px;
 }
-
 .solid-red {
   background-color: red;
 }
 
-.open-red {
-  background-color: white;
+.shaded-green:before {
+  background: linear-gradient(to right, white, white 30%, green 30%, green 70%, white 70%, white);
+  background-size: 5px 5px;
+}
+.solid-green {
+  background-color: green;
+}
+.shaded-purple:before {
+  background: linear-gradient(to right, white, white 30%, purple 30%, purple 70%, white 70%, white);
+  background-size: 5px 5px;
+}
+.solid-purple {
+  background-color: purple;
 }
 
 .pill:before {
@@ -29,7 +53,6 @@
   /*display: inline-block;*/
   height: 20%;
   width: 60%;
-  border: 5px solid red;
   border-radius: 30%/50%;
   overflow: hidden;
 }
@@ -51,7 +74,6 @@
   width: 50px;
   transform-origin: 50% 50%;
   transform: scaleY(.6) rotate(45deg);
-  border: 5px solid red;
   overflow: hidden;
   flex-shrink: 0;
   flex-grow: 0;
@@ -68,7 +90,6 @@
   /*display: inline-block;*/
   height: 20%;
   width: 60%;
-  border: 5px solid red;
   /*transform: scaleY(0.8);*/
   overflow: hidden;
 }
