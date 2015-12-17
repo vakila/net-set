@@ -92,7 +92,26 @@ describe('unclaimCard', function() {
         var claimed = m.getIn(unclaimedState, ['players', 'Leia', 'claimed']);
         assert.equal(m.count(claimed), 2);
     });
-})
+});
+
+describe('toggleClaimed', function() {
+    it('should remove the card if it was in players.player.claimed', function(){
+        var state = game.addPlayer('Leia', 1, game.getInitialState());
+        var claimedState = game.claimCard('Leia', 1, game.claimCard('Leia', 2, game.claimCard('Leia', 3, state)));
+        var toggledState = game.toggleClaimed('Leia', 2, claimedState);
+        var claimed = m.getIn(toggledState, ['players', 'Leia', 'claimed']);
+        assert.equal(m.count(claimed), 2);
+        assert.equal(m.count(m.intersection(claimed, m.set([m.nth(m.get(claimedState, 'deck'), 2)]))), 0);
+    });
+    it('should add the card if it was not in players.player.claimed', function() {
+        var state = game.addPlayer('Leia', 1, game.getInitialState());
+        var claimedState = game.claimCard('Leia', 2, game.claimCard('Leia', 3, state));
+        var toggledState = game.toggleClaimed('Leia', 4, claimedState);
+        var claimed = m.getIn(toggledState, ['players', 'Leia', 'claimed']);
+        assert.equal(m.count(claimed), 3);
+        assert.equal(m.count(m.intersection(claimed, m.set([m.nth(m.get(claimedState, 'deck'), 4)]))), 1);
+    });
+});
 
 describe('checkForCandidate', function() {
     var state;
