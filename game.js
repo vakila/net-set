@@ -167,6 +167,12 @@ function deal(oldState, slotID) {
     );
 }
 
+function dealGroup(oldState, slotGroup) {
+    return m.reduce(function(state, slot) {
+        return deal(state, slot);
+    }, oldState, slotGroup);
+}
+
 function discard(oldState, card) {
     var cardID = m.get(card, 'id');
     console.log("discarding card", cardID);
