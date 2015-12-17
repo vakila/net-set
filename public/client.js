@@ -50,6 +50,7 @@ socket.on('start game', function(state) {
   // updateBoard(mori.get(mori.toClj(state), 'board'));
   $( "button[name='start']" ).addClass("hidden");
   $( "#board" ).removeClass("hidden").addClass("flex");
+  $( "#dealer").removeClass("hidden").addClass("flex");
   updateBoard(state);
 });
 
@@ -62,6 +63,8 @@ function updateBoard(gameState) {
     console.log("slot:", slot);
     fillCardSlot(slot, deck[boardMap[slot]]);
   }
+  var cardsLeft = gameState.toDeal.length;
+  $("#cards-left").text(cardsLeft);
 }
 
 // MANAGE PLAYERS
@@ -161,6 +164,11 @@ function clearMarkers(player, set) {
 
 
 // MANAGE CARDS
+
+$("button[name='deal-3']").click(function(event) {
+  console.log("Upsize requested!");
+  socket.emit('request upsize', {});
+});
 
 function fillCardSlot(slotID, newCard) {
     console.log("fillCardSlot:", slotID, newCard);

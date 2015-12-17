@@ -16,7 +16,7 @@
     <h1>Net-Set</h1>
     <p>A description or something</p>
 
-    <p><a class="button" href="">How to play</a></p>
+    <p><button>How to play</button></p>
 
     <div id="players">
         <div class="player pcol-1">
@@ -49,7 +49,11 @@
 </div>
 
 <div id="content">
-<div id="board">
+    <div>
+        <button name="start" class="hidden">Start game</button>
+    </div>
+
+<div id="board" class="flex">
 
     <div class="card">
         <div id="0" class="card-content">
@@ -211,6 +215,8 @@
         </div>
     </div>
 
+    <!-- additional 3 cards to make 18: -->
+
     <div class="card">
         <div id="15" class="card-content">
             <svg class="shape open-purple pill">
@@ -219,7 +225,6 @@
         </div>
     </div>
 
-    <!-- additional 3 cards to make 18: -->
     <div class="card">
         <div id="16" class="card-content">
             <svg class="shape shaded-purple rectangle">
@@ -249,6 +254,11 @@
 
 
 </div> <!-- end board -->
+    <div id="dealer">
+        <p><span id="cards-left">5</span> cards left</p>
+        <p>No sets?</p>
+        <button name="deal-3">Deal 3</button>
+    </div>
 </div> <!-- end content -->
 
 <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% --->

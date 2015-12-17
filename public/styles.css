@@ -34,17 +34,24 @@ body {
   justify-content: center;
 }
 
+#dealer {
+  /*display: flex;*/
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: center;
+  /*flex-grow: 1;*/
+  color: #181818;
+}
+
 /** BUTTONS **/
 
-.button {
+button {
   color: white;
   background-color: #181818;  /*#003366;*/
   padding: 8px;
   border-radius: 5px;
-}
-
-a.button {
-  text-decoration: none;
+  border: 1px solid #181818;
+  font-size:1em;
 }
 
 button[name="start"] {
@@ -56,6 +63,9 @@ button[name="start"] {
   font-size: 3em;
 }
 
+button[name="deal-3"] {
+  cursor: pointer;
+}
 
 
 /*** SCORES ***/
