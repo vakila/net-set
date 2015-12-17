@@ -206,15 +206,19 @@ exports.unclaimCard = function(player, cardID, oldState) {
     var newClaimed = m.disj(oldClaimed, card);
     return m.assocIn(oldState, ['players', player, 'claimed'], newClaimed);
 }
-exports.toggleClaimed = function(player, cardID, oldState) {
+exports.isClaimed = function(cardID, player, oldState){
     var card = m.nth(m.get(oldState, 'deck'), Number(cardID));
     var oldClaimed = m.getIn(oldState, ['players', player, 'claimed']);
-    if (m.isSubset(m.set([card]), oldClaimed)) {
+    return m.isSubset(m.set([card]), oldClaimed);
+}
+exports.toggleClaimed = function(player, cardID, oldState) {
+    if (exports.isClaimed(cardID, player, oldState)) {
         return exports.unclaimCard(player, cardID, oldState);
     } else {
         return exports.claimCard(player, cardID, oldState);
     }
 }
+
 
 exports.checkForCandidate = function(player, state) {
     var claimed = m.getIn(state, ['players', player, 'claimed']);
