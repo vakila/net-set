@@ -152,6 +152,13 @@ function removeMarker(cardID, playerName) {
     marker.remove();
 }
 
+function clearMarkers(player, set) {
+    for (var i in set) {
+        var card = set[i];
+        removeMarker(card.id, player);
+    }
+}
+
 
 // MANAGE CARDS
 
@@ -198,11 +205,13 @@ function getSVGs(card) {
 
 socket.on('set found', function(data) {
   console.log("SET FOUND:", data.user, data.set);
+  clearMarkers(data.user, data.set);
   updateScore(data.user, data.gameState.players[data.user].score);
   updateBoard(data.gameState);
 });
 
 socket.on('set failed', function(data) {
   console.log("SET FAILED:", data.user, data.set);
+  clearMarkers(data.user, data.set);
   updateScore(data.user, data.gameState.players[data.user].score);
 });
