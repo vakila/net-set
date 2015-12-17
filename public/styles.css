@@ -45,6 +45,17 @@ body {
 
 /** BUTTONS **/
 
+.button {
+  color: white;
+  background-color: #181818;  /*#003366;*/
+  padding: 8px;
+  border-radius: 5px;
+}
+
+a.button {
+  text-decoration: none;
+}
+
 button {
   color: white;
   background-color: #181818;  /*#003366;*/
