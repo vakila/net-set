@@ -36,6 +36,10 @@ function getEmptyBoard() {
     return m.zipmap(SLOTS, m.map(m.constantly(null), m.range(18)));
 }
 
+function sortBoard(board) {
+    return m.sortBy(function(pair) { return m.nth(pair, 0); }, board);
+}
+
 exports.startBoard = function(oldState) {
     var slots = m.take(12, SLOTS);
     return m.reduce(function(state, slot) {
@@ -51,12 +55,32 @@ function partitionSlots(slots) {
     return [first12, extra1, extra2];
 }
 
+function getPairsWhereCardIs(nullOrNot, board) {
+    //nullOrNot should be null or !null
+    console.log("nullOrNot", nullOrNot);
+    return m.filter(function(pair) {
+        console.log("filtering", pair, "-", !!m.nth(pair, 1), !!m.nth(pair, 1) === !!nullOrNot);
+        return !!m.nth(pair, 1) === !!nullOrNot;
+    }, board);
+}
+
+function getCardIDs(slotCardPairs) {
+    return m.map(function(pair) { return m.nth(pair, 1); }, slotCardPairs);
+}
+
+function getSlotIDs(slotCardPairs) {
+    return m.map(function(pair) { return m.nth(pair, 0); }, slotCardPairs);
+}
+
+// hasOpenings and hasCards could be refactored to:
+// - use getPairsWhereCardIs()
+// - be lazy (with recursion)
 function hasOpenings(board, slotGroup) {
     return m.reduce(function(answer, slot) {
         return answer || m.get(board, slot) === null;
     }, false, slotGroup);
 }
-
+// see comment above hasOpenings
 function hasCards(board, slotGroup) {
     return m.reduce(function(answer, slot) {
         return answer || m.get(board, slot) !== null;
@@ -65,7 +89,7 @@ function hasCards(board, slotGroup) {
 
 function needsDownsize(board) {
     // console.log("checking if needsDownsize...")
-    // console.log("board:", m.sortBy(function(pair) { return m.nth(pair, 0); }, board));
+    // console.log("board:", sortBoard(board));
     var grouped = partitionSlots(SLOTS);
     var first12 = grouped[0], extra1 = grouped[1], extra2 = grouped[2];
     if (hasCards(board, extra2)) {
@@ -78,17 +102,14 @@ function needsDownsize(board) {
 }
 
 function downsizeBoard(oldBoard) {
-    var sortedBoard = m.sortBy(function(pair) { return m.nth(pair, 0); }, oldBoard);
-    var nonEmpty = m.filter(function(pair) {
-        return m.nth(pair, 1) !== null;
-    }, sortedBoard);
-    var cards = m.map(function(pair) { return m.nth(pair, 1); }, nonEmpty);
+    var sortedBoard = sortBoard(oldBoard);
+    var cards = getCardIDs(getPairsWhereCardIs(!null, sortedBoard));
     return m.merge(getEmptyBoard(), m.zipmap(SLOTS, cards));
 }
 
 exports.downsizeIfNeeded = function(oldState) {
     var oldBoard = m.get(oldState, 'board');
-    console.log("board:", m.sortBy(function(pair) { return m.nth(pair, 0); }, oldBoard));
+    console.log("board:", sortBoard(oldBoard));
     if (needsDownsize(oldBoard)) {
         console.log('needs downsize!');
         return m.assoc(oldState, 'board', downsizeBoard(oldBoard));
