@@ -174,6 +174,7 @@ function getSVGs(card) {
 socket.on('set found', function(data) {
   console.log("SET FOUND:", data.user, data.set);
   updateScore(data.user, data.gameState.players[data.user].score);
+  updateBoard(data.gameState);
 });
 
 socket.on('set failed', function(data) {
