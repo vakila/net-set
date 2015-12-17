@@ -236,7 +236,7 @@ describe.skip('needsDownsize', function() {
 
 describe('downsizeIfNeeded', function() {
     var state0, board0;
-    beforeEach(function() {
+    before(function() {
         state0 = game.startBoard(game.getInitialState());
         board0 = m.get(state0, 'board');
     });
