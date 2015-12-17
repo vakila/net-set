@@ -233,3 +233,61 @@ describe.skip('needsDownsize', function() {
 
     });
 });
+
+describe('downsizeIfNeeded', function() {
+    var state0, board0;
+    beforeEach(function() {
+        state0 = game.startBoard(game.getInitialState());
+        board0 = m.get(state0, 'board');
+    });
+    it('should do nothing to a board with no cards above openings', function(){
+        assert(m.equals(game.downsizeIfNeeded(state0), state0));
+        var board1 = m.pipeline(board0,
+            m.curry(m.assoc, 'M', 100),
+            m.curry(m.assoc, 'N', 101),
+            m.curry(m.assoc, 'O', 102)
+        );
+        var state1 = m.assoc(state0, 'board', board1);
+        assert(m.equals(game.downsizeIfNeeded(state1), state1));
+        var board2 = m.pipeline(board1,
+            m.curry(m.assoc, 'P', 103),
+            m.curry(m.assoc, 'Q', 104),
+            m.curry(m.assoc, 'R', 105)
+        );
+        var state2 = m.assoc(state0, 'board', board2);
+        assert(m.equals(game.downsizeIfNeeded(state2), state2));
+    });
+    it('should consolidate a board with cards above openings', function() {
+        var board1 = m.pipeline(board0,
+            m.curry(m.assoc, 'A', null),
+            m.curry(m.assoc, 'B', null),
+            m.curry(m.assoc, 'C', null),
+            m.curry(m.assoc, 'M', 100),
+            m.curry(m.assoc, 'N', 101),
+            m.curry(m.assoc, 'O', 102)
+        );
+        var state1 = m.assoc(state0, 'board', board1);
+        var state1D = game.downsizeIfNeeded(state1);
+        console.log("state1 board:", m.get(state1, 'board'));
+        console.log("state1D board:", m.get(state1D, 'board'));
+        assert.equal(m.equals(state1D, state1), false);
+        m.each(m.vector('A', 'B', 'C'), function(slot) {
+            assert(m.getIn(state1D, ['board', slot]));
+        });
+        m.each(m.vector('M', 'N', 'O'), function(slot) {
+            assert.equal(m.getIn(state1D, ['board', slot]), null);
+        });
+
+        var board2 = m.pipeline(board0,
+            m.curry(m.assoc, 'D', null),
+            m.curry(m.assoc, 'P', 103)
+        );
+        var state2 = m.assoc(state0, 'board', board2);
+        var state2D = game.downsizeIfNeeded(state2);
+        console.log("state2 board:", m.get(state2, 'board'));
+        console.log("state2D board:", m.get(state2D, 'board'));
+        assert.equal(m.equals(state2D, state2), false);
+        assert(m.getIn(state2D, ['board', 'D']));
+        assert.equal(m.getIn(state2D, ['board', 'P']), null);
+    });
+});

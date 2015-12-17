@@ -77,6 +77,27 @@ function needsDownsize(board) {
     }
 }
 
+function downsizeBoard(oldBoard) {
+    var sortedBoard = m.sortBy(function(pair) { return m.nth(pair, 0); }, oldBoard);
+    var nonEmpty = m.filter(function(pair) {
+        return m.nth(pair, 1) !== null;
+    }, sortedBoard);
+    var cards = m.map(function(pair) { return m.nth(pair, 1); }, nonEmpty);
+    return m.merge(getEmptyBoard(), m.zipmap(SLOTS, cards));
+}
+
+exports.downsizeIfNeeded = function(oldState) {
+    var oldBoard = m.get(oldState, 'board');
+    console.log("board:", m.sortBy(function(pair) { return m.nth(pair, 0); }, oldBoard));
+    if (needsDownsize(oldBoard)) {
+        console.log('needs downsize!');
+        return m.assoc(oldState, 'board', downsizeBoard(oldBoard));
+    } else {
+        console.log('no downsize needed');
+        return oldState;
+    }
+}
+
 //// CARD DEALING/DISCARDING ////
 
 function shuffleIDs(deck) {
