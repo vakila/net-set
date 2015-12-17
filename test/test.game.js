@@ -66,6 +66,14 @@ describe('claimCard', function(){
         assert(m.hasKey(m.first(claimed), 'color'));
         assert(m.equals(m.first(claimed), m.nth(m.get(claimedState, 'deck'), 3)));
     });
+    it('should have no effect if the card was already claimed', function() {
+        var state = game.addPlayer('Leia', 1, game.getInitialState());
+        var claimedState = game.claimCard('Leia', 2, game.claimCard('Leia', 3, state));
+        var claimed = m.getIn(claimedState, ['players', 'Leia', 'claimed']);
+        var reclaimedState = game.claimCard('Leia', 3, claimedState);
+        var claimed = m.getIn(reclaimedState, ['players', 'Leia', 'claimed']);
+        assert.equal(m.count(claimed), 2);
+    })
 });
 
 describe('unclaimCard', function() {
