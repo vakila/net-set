@@ -36,7 +36,7 @@ function getEmptyBoard() {
     return m.zipmap(SLOTS, m.map(m.constantly(null), m.range(18)));
 }
 
-function sortBoard(board) {
+exports.sortBoard = function(board) {
     return m.sortBy(function(pair) { return m.nth(pair, 0); }, board);
 }
 
@@ -89,7 +89,7 @@ function hasCards(board, slotGroup) {
 
 function needsDownsize(board) {
     // console.log("checking if needsDownsize...")
-    // console.log("board:", sortBoard(board));
+    // console.log("board:", exports.sortBoard(board));
     var grouped = partitionSlots(SLOTS);
     var first12 = grouped[0], extra1 = grouped[1], extra2 = grouped[2];
     if (hasCards(board, extra2)) {
@@ -102,14 +102,14 @@ function needsDownsize(board) {
 }
 
 function downsizeBoard(oldBoard) {
-    var sortedBoard = sortBoard(oldBoard);
+    var sortedBoard = exports.sortBoard(oldBoard);
     var cards = getCardIDs(getPairsWhereCardIs(!null, sortedBoard));
     return m.merge(getEmptyBoard(), m.zipmap(SLOTS, cards));
 }
 
 exports.downsizeIfNeeded = function(oldState) {
     var oldBoard = m.get(oldState, 'board');
-    console.log("board:", sortBoard(oldBoard));
+    console.log("board:", exports.sortBoard(oldBoard));
     if (needsDownsize(oldBoard)) {
         console.log('needs downsize!');
         return m.assoc(oldState, 'board', downsizeBoard(oldBoard));
@@ -120,7 +120,7 @@ exports.downsizeIfNeeded = function(oldState) {
 }
 
 function refillBoard(oldState) {
-    var sorted12 = m.take(12, sortBoard(m.get(oldState, 'board')));
+    var sorted12 = m.take(12, exports.sortBoard(m.get(oldState, 'board')));
     var emptySlots = getSlotIDs(getPairsWhereCardIs(null, sorted12));
     return m.reduce(function(state, slot) {
         return deal(state, slot);
@@ -130,7 +130,7 @@ function refillBoard(oldState) {
 exports.refillIfNeeded = function(oldState) {
     var first12 = partitionSlots(SLOTS)[0];
     var oldBoard = m.get(oldState, 'board');
-    console.log("board:", sortBoard(oldBoard));
+    console.log("board:", exports.sortBoard(oldBoard));
     if (hasOpenings(oldBoard, first12)) {
         console.log("needs refill!")
         return refillBoard(oldState);

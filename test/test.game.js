@@ -268,8 +268,8 @@ describe('downsizeIfNeeded', function() {
         );
         var state1 = m.assoc(state0, 'board', board1);
         var state1D = game.downsizeIfNeeded(state1);
-        console.log("state1 board:", m.get(state1, 'board'));
-        console.log("state1D board:", m.get(state1D, 'board'));
+        console.log("state1 board:", game.sortBoard(m.get(state1, 'board')));
+        console.log("state1D board:", game.sortBoard(m.get(state1D, 'board')));
         assert.equal(m.equals(state1D, state1), false);
         m.each(m.vector('A', 'B', 'C'), function(slot) {
             assert(m.getIn(state1D, ['board', slot]));
@@ -284,8 +284,8 @@ describe('downsizeIfNeeded', function() {
         );
         var state2 = m.assoc(state0, 'board', board2);
         var state2D = game.downsizeIfNeeded(state2);
-        console.log("state2 board:", m.get(state2, 'board'));
-        console.log("state2D board:", m.get(state2D, 'board'));
+        console.log("state2 board:", game.sortBoard(m.get(state2, 'board')));
+        console.log("state2D board:", game.sortBoard(m.get(state2D, 'board')));
         assert.equal(m.equals(state2D, state2), false);
         assert(m.getIn(state2D, ['board', 'D']));
         assert.equal(m.getIn(state2D, ['board', 'P']), null);
@@ -319,7 +319,7 @@ describe('refillIfNeeded', function() {
             m.curry(m.assocIn, ['board', 'C'], null)
         );
         var state1R = game.refillIfNeeded(state1);
-        console.log("state1R board:", m.get(state1R, 'board'));
+        console.log("state1R board:", game.sortBoard(m.get(state1R, 'board')));
         assert.equal(m.equals(state1, state1R), false);
         m.each(m.vector('A', 'B', 'C'), function(slot) {
             assert(m.getIn(state1R, ['board', slot]));
@@ -331,7 +331,7 @@ describe('refillIfNeeded', function() {
             m.curry(m.assocIn, ['board', 'K'], null)
         );
         var state2R = game.refillIfNeeded(state2);
-        console.log("state2R board:", m.get(state2R, 'board'));
+        console.log("state2R board:", game.sortBoard(m.get(state2R, 'board')));
         assert.equal(m.equals(state2, state2R), false);
         m.each(m.vector('D', 'H', 'K'), function(slot) {
             assert(m.getIn(state2R, ['board', slot]));
