@@ -76,12 +76,14 @@ io.on('connection', function(socket){
           console.log("SET FOUND", click.user, claimed);
           scoreDiff = 1;
           // discard cards
-          console.log("Attempting discard...")
-          console.log("Board before discard:", m.get(gameState, 'board'));
-          gameState = game.discardSet(gameState, claimed);
-          console.log("Board after discard:", m.get(gameState, 'board'));
-          //TODO downsize board if needed
-          //TODO deal new cards
+          console.log("Attempting discard, downsize, and refill...")
+          console.log("Board before:", game.sortBoard(m.get(gameState, 'board')));
+          gameState = m.pipeline(gameState,
+              m.curry(game.discardSet, claimed),
+              game.downsizeIfNeeded,
+              game.refillIfNeeded
+          );
+          console.log("Board after:",  game.sortBoard(m.get(gameState, 'board')));
           setEvent = 'set found';
         }
         else {
