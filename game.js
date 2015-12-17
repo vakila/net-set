@@ -63,7 +63,7 @@ function hasCards(board, slotGroup) {
     }, false, slotGroup);
 }
 
-exports.needsDownsize = function(board) {
+function needsDownsize(board) {
     // console.log("checking if needsDownsize...")
     // console.log("board:", m.sortBy(function(pair) { return m.nth(pair, 0); }, board));
     var grouped = partitionSlots(SLOTS);

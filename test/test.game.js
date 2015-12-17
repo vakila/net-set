@@ -186,7 +186,7 @@ describe('discardSet', function() {
     });
 });
 
-describe('needsDownsize', function() {
+describe.skip('needsDownsize', function() {
     var board0;
     before(function() {
         board0 = m.get(game.startBoard(game.getInitialState()), 'board');
