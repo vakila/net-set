@@ -142,7 +142,17 @@ exports.refillIfNeeded = function(oldState) {
 }
 
 exports.upsizeIfNeeded = function(oldState) {
-    //TODO
+    var grouped = partitionSlots(SLOTS);
+    var oldBoard = m.get(oldState, 'board');
+    var extra1 = grouped[1];
+    var extra2 = grouped[2];
+    if (hasOpenings(oldBoard, extra1)) {
+        return dealGroup(oldState, extra1);
+    } else if (hasOpenings(oldBoard, extra2)) {
+        return dealGroup(oldState, extra2);
+    } else {
+        return oldState;
+    }
 }
 
 //// CARD DEALING/DISCARDING ////
