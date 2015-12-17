@@ -49,6 +49,7 @@ socket.on('start game', function(state) {
   console.log("Received START GAME");
   // updateBoard(mori.get(mori.toClj(state), 'board'));
   $( "button[name='start']" ).addClass("hidden");
+  $( "#board" ).removeClass("hidden").addClass("flex");
   updateBoard(state);
 });
 

@@ -29,6 +29,9 @@ body {
   top: 0;
   right: 0;
   bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /** BUTTONS **/
@@ -42,6 +45,15 @@ body {
 
 a.button {
   text-decoration: none;
+}
+
+button[name="start"] {
+  color: #181818;
+  background-color: white;
+  padding: 40px;
+  border: 5px solid white;
+  border-radius: 10px;
+  font-size: 3em;
 }
 
 

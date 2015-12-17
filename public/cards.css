@@ -2,15 +2,19 @@
   display: none;
 }
 
+.flex {
+  display: flex;
+}
+
 #board {
-  background-color: white;
+  background-color: black;
   /*padding: 5vh;*/
   margin: 0px auto;
   width: 100%;
   height: 100vh;
   min-height: 585px;
   /*text-align: center;*/
-  display: flex;
+  /*display: flex;*/
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
