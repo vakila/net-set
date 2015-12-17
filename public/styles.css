@@ -2,7 +2,7 @@
 
 body {
   font-family: sans-serif;
-  background-color: #181818;  /*#003366;*/
+  background-color:  grey; /* #181818;  #003366;*/
   color: white;
 }
 
@@ -51,7 +51,7 @@ button[name="start"] {
   color: #181818;
   background-color: white;
   padding: 40px;
-  border: 5px solid white;
+  border: 2px solid black;
   border-radius: 10px;
   font-size: 3em;
 }
