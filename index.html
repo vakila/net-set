@@ -25,8 +25,24 @@
 </div>
 
 <div id="content">
-    <div>
-        <button name="start">Start game</button>
+    <div id="pre-game">
+        <div id="player-form">
+            <p class="question">What's your name?</p>
+            <input name="user-name" type="text" maxlength="14" />
+            <p class="question">Pick a color:
+            <select name="user-color">
+              <option value="1" class="pcol-1">Red</option>
+              <option value="2" class="pcol-2">Orange</option>
+              <option value="3" class="pcol-3">Yellow</option>
+              <option value="4" class="pcol-4">Green</option>
+              <option value="5" class="pcol-5">Blue</option>
+              <option value="6" class="pcol-6">Purple</option>
+            </select>
+            </p>
+            <button name="join">Join game</button>
+        </div>
+
+        <button name="start" class="hidden">Start game</button>
     </div>
 
 <div id="board" class="hidden">

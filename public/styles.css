@@ -52,6 +52,7 @@ button {
   border-radius: 5px;
   border: 1px solid #181818;
   font-size:1em;
+  cursor: pointer;
 }
 
 button[name="start"] {
@@ -63,11 +64,29 @@ button[name="start"] {
   font-size: 3em;
 }
 
-button[name="deal-3"] {
-  cursor: pointer;
-}
 button[name="deal-3"]:disabled {
   opacity: 0.2;
+}
+
+/*** PRE-GAME ***/
+
+#player-form {
+  text-align: center;
+}
+
+#player-form p,
+#player-form input,
+#player-form select {
+  font-size: 3rem;
+}
+
+#player-form select {
+  vertical-align: middle;
+}
+
+#player-form select {
+  background-color: white;
+  font-size: .75em;
 }
 
 

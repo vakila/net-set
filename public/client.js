@@ -36,9 +36,19 @@ socket.on('load game', function(state) {
   loadPlayers(mori.get(mori.toClj(state), 'players')); //works (if server sends JS)
   // loadPlayers(mori.get(state, 'players')); //doesn't work (if server sends JS)
 
-  username = prompt("Please enter your name");
-  userColor = Number(prompt("Please choose a color (number 1-6)"));
+  // username = prompt("Please enter your name");
+  // userColor = Number(prompt("Please choose a color (number 1-6)"));
+  // socket.emit('log on', username, userColor);
+});
+
+$( "button[name='join']" ).click(function() {
+  console.log("submitted form");
+  username = $("input[name='user-name']").val();
+  userColor = $("select[name='user-color']").val();
+  console.log(username, userColor);
   socket.emit('log on', username, userColor);
+  $("#player-form").addClass("hidden");
+  $("button[name='start']").removeClass("hidden");
 });
 
 $("button[name='start']").click(function() {
