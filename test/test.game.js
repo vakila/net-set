@@ -157,6 +157,33 @@ describe('emptyClaimed', function() {
     });
 });
 
+describe('processCandidate', function() {
+    var state;
+    beforeEach(function() {
+        state = game.addPlayer('Leia', 2, game.addPlayer('Luke', 3, game.getInitialState()));
+        state = game.claimCard('Leia', 1, game.claimCard('Leia', 2, game.claimCard('Leia', 0, state)));
+        state = game.claimCard('Luke', 1, game.claimCard('Luke', 2, game.claimCard('Luke', 3, state)));
+        console.log('Leia claimed:', m.getIn(state, ['players', 'Leia', 'claimed']));
+        game.checkForSet('Leia', state);
+        console.log("Leia score:", m.getIn(state, ['players', 'Leia', 'score']));
+        console.log('Luke claimed:', m.getIn(state, ['players', 'Luke', 'claimed']));
+        game.checkForSet('Luke', state);
+        console.log("Luke score:", m.getIn(state, ['players', 'Luke', 'score']));
+    });
+
+    it('should return a mori hashMap with the appropriate keys', function(){
+        var setData = game.processCandidate('Luke', state);
+        console.log(setData);
+        assert(m.isMap(setData));
+        assert(m.hasKey(setData, 'user'));
+        assert(m.hasKey(setData, 'set'));
+        assert(m.hasKey(setData, 'gameState'));
+        assert(m.hasKey(setData, 'event'));
+    });
+    it('should return the correct set found|failed event');
+    it('should return gameState object with correctly updated score');
+});
+
 describe('startBoard', function() {
     var state;
     beforeEach(function() {
