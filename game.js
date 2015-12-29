@@ -36,7 +36,7 @@ function getEmptyBoard() {
     return m.zipmap(SLOTS, m.map(m.constantly(null), m.range(18)));
 }
 
-exports.sortBoard = function(board) {
+function sortBoard(board) {
     return m.sortBy(function(pair) { return m.nth(pair, 0); }, board);
 }
 
@@ -89,7 +89,7 @@ function hasCards(board, slotGroup) {
 
 function needsDownsize(board) {
     // console.log("checking if needsDownsize...")
-    // console.log("board:", exports.sortBoard(board));
+    // console.log("board:", sortBoard(board));
     var grouped = partitionSlots(SLOTS);
     var first12 = grouped[0], extra1 = grouped[1], extra2 = grouped[2];
     if (hasCards(board, extra2)) {
@@ -102,15 +102,15 @@ function needsDownsize(board) {
 }
 
 function downsizeBoard(oldBoard) {
-    var sortedBoard = exports.sortBoard(oldBoard);
+    var sortedBoard = sortBoard(oldBoard);
     var cards = getCardIDs(getPairsWhereCardIs(!null, sortedBoard));
     // console.log("cards in board:", cards);
     return m.merge(getEmptyBoard(), m.zipmap(SLOTS, cards));
 }
 
-exports.downsizeIfNeeded = function(oldState) {
+function downsizeIfNeeded(oldState) {
     var oldBoard = m.get(oldState, 'board');
-    console.log("board:", exports.sortBoard(oldBoard));
+    console.log("board:", sortBoard(oldBoard));
     if (needsDownsize(oldBoard)) {
         console.log('needs downsize!');
         return m.assoc(oldState, 'board', downsizeBoard(oldBoard));
@@ -121,17 +121,17 @@ exports.downsizeIfNeeded = function(oldState) {
 }
 
 function refillBoard(oldState) {
-    var sorted12 = m.take(12, exports.sortBoard(m.get(oldState, 'board')));
+    var sorted12 = m.take(12, sortBoard(m.get(oldState, 'board')));
     var emptySlots = getSlotIDs(getPairsWhereCardIs(null, sorted12));
     return m.reduce(function(state, slot) {
         return deal(state, slot);
     }, oldState, emptySlots);
 }
 
-exports.refillIfNeeded = function(oldState) {
+function refillIfNeeded(oldState) {
     var first12 = partitionSlots(SLOTS)[0];
     var oldBoard = m.get(oldState, 'board');
-    console.log("board:", exports.sortBoard(oldBoard));
+    console.log("board:", sortBoard(oldBoard));
     if (hasOpenings(oldBoard, first12)) {
         console.log("needs refill!")
         return refillBoard(oldState);
@@ -197,7 +197,7 @@ function discard(oldState, card) {
     return m.assocIn(oldState, ['board', slotID], null);
 }
 
-exports.discardSet = function(oldState, setCards) {
+function discardSet(oldState, setCards) {
     return m.reduce(function(state, card) {
         console.log("REDUCING:")
         console.log("card", card);
@@ -242,14 +242,14 @@ exports.checkForCandidate = function(player, state) {
     return m.count(claimed) === 3;
 }
 
-exports.checkForSet = function(player, state) {
+function checkForSet(player, state) {
     var claimed = m.getIn(state, ['players', player, 'claimed']);
     console.log("claimed:", claimed);
     console.log("playerHasSet:", set.isSet(claimed));
     return set.isSet(claimed);
 }
 
-exports.emptyClaimed = function(oldState, player) {
+function emptyClaimed(oldState, player) {
     console.log("emptying claimed for", player);
     return m.assocIn(oldState, ['players', player, 'claimed'], m.set());
 }
@@ -262,20 +262,20 @@ exports.processCandidate = function(player, gameState) {
     // 'gameState': new gameState after set found/failed,
     // 'event': name of event to be emitted ("set found"|"set failed")}
     var claimed = m.getIn(gameState, ['players', player, 'claimed']);
-    var hasSet = exports.checkForSet(player, gameState);
+    var hasSet = checkForSet(player, gameState);
     var scoreDiff, setEvent, newState;
     if (hasSet) {
       console.log("SET FOUND", player, claimed);
       scoreDiff = 1;
       // discard cards
       console.log("Attempting discard, downsize, and refill...")
-      console.log("Board before:", exports.sortBoard(m.get(gameState, 'board')));
+      console.log("Board before:", sortBoard(m.get(gameState, 'board')));
       newState = m.pipeline(gameState,
-          m.curry(exports.discardSet, claimed),
-          exports.downsizeIfNeeded,
-          exports.refillIfNeeded
+          m.curry(discardSet, claimed),
+          downsizeIfNeeded,
+          refillIfNeeded
       );
-      console.log("Board after:",  exports.sortBoard(m.get(newState, 'board')));
+      console.log("Board after:",  sortBoard(m.get(newState, 'board')));
       setEvent = 'set found';
     }
     else {
@@ -286,8 +286,8 @@ exports.processCandidate = function(player, gameState) {
     }
     console.log(setEvent.toUpperCase(), player, claimed);
     var scoredState = m.pipeline(newState,
-        m.curry(exports.updateScore, player, scoreDiff),
-        m.curry(exports.emptyClaimed, player)
+        m.curry(updateScore, player, scoreDiff),
+        m.curry(emptyClaimed, player)
     );
 
     //TODO return data object including new gameState
@@ -309,7 +309,7 @@ exports.removePlayer = function(name, oldState) {
     return m.assoc(oldState, 'players', newPlayers);
 }
 
-exports.updateScore = function(oldState, player, scoreChange) {
+function updateScore(oldState, player, scoreChange) {
     return m.updateIn(oldState, ['players', player, 'score'], function(oldScore){
         return oldScore + scoreChange;
     });
