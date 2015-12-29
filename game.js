@@ -255,7 +255,47 @@ exports.emptyClaimed = function(oldState, player) {
 }
 
 // //TODO
-// exports.processClick = function(click, hasSetCallback, noSetCallback) {}
+exports.processCandidate = function(player, gameState) {
+    // should return a setData hashMap with keys:
+    // {'user': player,
+    // 'set': set candidate (3 claimed cards),
+    // 'gameState': new gameState after set found/failed,
+    // 'event': name of event to be emitted ("set found"|"set failed")}
+    var claimed = m.getIn(gameState, ['players', player, 'claimed']);
+    var hasSet = exports.checkForSet(player, gameState);
+    var scoreDiff, setEvent, newState;
+    if (hasSet) {
+      console.log("SET FOUND", player, claimed);
+      scoreDiff = 1;
+      // discard cards
+      console.log("Attempting discard, downsize, and refill...")
+      console.log("Board before:", exports.sortBoard(m.get(gameState, 'board')));
+      newState = m.pipeline(gameState,
+          m.curry(exports.discardSet, claimed),
+          exports.downsizeIfNeeded,
+          exports.refillIfNeeded
+      );
+      console.log("Board after:",  exports.sortBoard(m.get(newState, 'board')));
+      setEvent = 'set found';
+    }
+    else {
+      console.log("SET FAILED", player, claimed);
+      scoreDiff = -1;
+      setEvent = 'set failed';
+      newState = gameState
+    }
+    console.log(setEvent.toUpperCase(), player, claimed);
+    var scoredState = m.pipeline(newState,
+        m.curry(exports.updateScore, player, scoreDiff),
+        m.curry(exports.emptyClaimed, player)
+    );
+
+    //TODO return data object including new gameState
+    return m.hashMap('user', player,
+                     'set', claimed,
+                     'event', setEvent,
+                     'gameState', scoredState);
+}
 
 
 //// PLAYERS AND SCORES ////
