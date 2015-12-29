@@ -73,46 +73,19 @@ io.on('connection', function(socket){
     console.log('CARD CLICK', click.user, click.card);
     gameState = game.toggleClaimed(click.user, click.card, gameState);
     console.log('gameState.players.' + click.user + '.claimed:', m.getIn(gameState, ['players', click.user, 'claimed']));
+
+    // Emit card click event
     io.emit('card click', {'player':click.user,
                            'card': click.card,
                            'color': m.getIn(gameState, ['players', click.user, 'color']),
                            'claimed': game.isClaimed(click.card, click.user, gameState)}
     );
-    // can I turn this into a function that takes 2 callbacks?
-    //game.processClick(click, function() {socket.emit("success");}, function() {socket.emit("failure");})
+
+    // Emit set found/failed event if needed
     var hasCandidate = game.checkForCandidate(click.user, gameState);
     if (hasCandidate) {
         var setData = game.processCandidate(click.user, gameState);
         io.emit(m.get(setData, 'event'), m.toJs(setData));
-        // var setData = {'user':click.user, 'set':m.toJs(claimed)};
-        // var hasSet = game.checkForSet(click.user, gameState);
-        // var scoreDiff, setEvent;
-        // if (hasSet) {
-        //   console.log("SET FOUND", click.user, claimed);
-        //   scoreDiff = 1;
-        //   // discard cards
-        //   console.log("Attempting discard, downsize, and refill...")
-        //   console.log("Board before:", game.sortBoard(m.get(gameState, 'board')));
-        //   gameState = m.pipeline(gameState,
-        //       m.curry(game.discardSet, claimed),
-        //       game.downsizeIfNeeded,
-        //       game.refillIfNeeded
-        //   );
-        //   console.log("Board after:",  game.sortBoard(m.get(gameState, 'board')));
-        //   setEvent = 'set found';
-        // }
-        // else {
-        //   console.log("SET FAILED", click.user, claimed);
-        //   scoreDiff = -1;
-        //   setEvent = 'set failed';
-        // }
-        // console.log(setEvent.toUpperCase(), setData.user, setData.set);
-        // gameState = m.pipeline(gameState,
-        //     m.curry(game.updateScore, setData.user, scoreDiff),
-        //     m.curry(game.emptyClaimed, setData.user)
-        // );
-        // setData.gameState = m.toJs(gameState);
-        // io.emit(setEvent, setData);
     }
 
   });

@@ -254,7 +254,7 @@ exports.emptyClaimed = function(oldState, player) {
     return m.assocIn(oldState, ['players', player, 'claimed'], m.set());
 }
 
-// //TODO
+
 exports.processCandidate = function(player, gameState) {
     // should return a setData hashMap with keys:
     // {'user': player,
