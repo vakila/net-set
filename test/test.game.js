@@ -161,27 +161,45 @@ describe('processCandidate', function() {
     var state;
     beforeEach(function() {
         state = game.addPlayer('Leia', 2, game.addPlayer('Luke', 3, game.getInitialState()));
+
+        state = m.assocIn(state, ['board', 'A'], 0);
+        state = m.assocIn(state, ['board', 'B'], 1);
+        state = m.assocIn(state, ['board', 'C'], 2);
+        state = m.assocIn(state, ['board', 'D'], 3);
+        // console.log("Board:", m.get(state, 'board'));
+
         state = game.claimCard('Leia', 1, game.claimCard('Leia', 2, game.claimCard('Leia', 0, state)));
-        state = game.claimCard('Luke', 1, game.claimCard('Luke', 2, game.claimCard('Luke', 3, state)));
-        console.log('Leia claimed:', m.getIn(state, ['players', 'Leia', 'claimed']));
+        // console.log('Leia claimed:', m.getIn(state, ['players', 'Leia', 'claimed']));
         game.checkForSet('Leia', state);
-        console.log("Leia score:", m.getIn(state, ['players', 'Leia', 'score']));
-        console.log('Luke claimed:', m.getIn(state, ['players', 'Luke', 'claimed']));
+        // console.log("Leia score:", m.getIn(state, ['players', 'Leia', 'score']));
+
+        state = game.claimCard('Luke', 1, game.claimCard('Luke', 2, game.claimCard('Luke', 3, state)));
+        // console.log('Luke claimed:', m.getIn(state, ['players', 'Luke', 'claimed']));
         game.checkForSet('Luke', state);
-        console.log("Luke score:", m.getIn(state, ['players', 'Luke', 'score']));
+        // console.log("Luke score:", m.getIn(state, ['players', 'Luke', 'score']));
     });
 
     it('should return a mori hashMap with the appropriate keys', function(){
         var setData = game.processCandidate('Luke', state);
-        console.log(setData);
+        // console.log(setData);
         assert(m.isMap(setData));
         assert(m.hasKey(setData, 'user'));
         assert(m.hasKey(setData, 'set'));
         assert(m.hasKey(setData, 'gameState'));
         assert(m.hasKey(setData, 'event'));
     });
-    it('should return the correct set found|failed event');
-    it('should return gameState object with correctly updated score');
+    it('should return the correct set found|failed event', function() {
+        var lukeData = game.processCandidate('Luke', state);
+        assert.equal(m.get(lukeData, 'event'), 'set failed');
+        var leiaData = game.processCandidate('Leia', state);
+        assert.equal(m.get(leiaData, 'event'), 'set found');
+    });
+    it('should return gameState object with correctly updated score', function() {
+        var lukeData = game.processCandidate('Luke', state);
+        assert.equal(m.getIn(lukeData, ['gameState', 'players', 'Luke', 'score']), -1);
+        var lukeData = game.processCandidate('Leia', state);
+        assert.equal(m.getIn(lukeData, ['gameState', 'players', 'Leia', 'score']), 1);
+    });
 });
 
 describe('startBoard', function() {
