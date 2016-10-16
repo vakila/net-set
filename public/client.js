@@ -43,7 +43,7 @@ socket.on('load game', function(state) {
 
 $( "button[name='join']" ).click(function() {
   console.log("submitted form");
-  username = $("input[name='user-name']").val();
+  username = $("input[name='user-name']").val().replace(/ /g, "-");
   userColor = $("select[name='user-color']").val();
   console.log(username, userColor);
   socket.emit('log on', username, userColor);
